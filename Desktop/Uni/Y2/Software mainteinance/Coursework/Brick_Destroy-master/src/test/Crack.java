@@ -28,7 +28,7 @@ public class Crack {
 
 
         /**
-         * @param crackDepth the depth how crack the bricks are.
+         * @param crackDepth the depth of crack
          * @param steps
          */
         public Crack(int crackDepth, int steps){

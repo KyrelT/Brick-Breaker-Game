@@ -22,13 +22,7 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-/**
- * This is DebugConsole Class
- * @author hcykt2
- * @version 1.1
- * @since 11/11/2021
- *
- */
+
 public class DebugConsole extends JDialog implements WindowListener{
 
     private static final String TITLE = "Debug Console";
@@ -41,9 +35,9 @@ public class DebugConsole extends JDialog implements WindowListener{
 
 
     /**
-     * @param owner
-     * @param wall
-     * @param gameBoard
+     * @param owner owner
+     * @param wall wall
+     * @param gameBoard gameBoard
      */
     public DebugConsole(JFrame owner,Wall wall,GameBoard gameBoard){
 
@@ -59,6 +53,9 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.pack();
     }
 
+    /**
+     *
+     */
     private void initialize(){
         this.setModal(true);
         this.setTitle(TITLE);

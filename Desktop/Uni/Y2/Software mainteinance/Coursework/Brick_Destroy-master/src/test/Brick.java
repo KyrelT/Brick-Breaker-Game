@@ -36,6 +36,14 @@ abstract public class Brick  {
     private boolean broken;
 
 
+    /**
+     * @param name type of the brick
+     * @param pos position of the brick
+     * @param size size of the brick
+     * @param border border color of the brick
+     * @param inner inner color of the brick
+     * @param strength strength of the brick
+     */
     public Brick(String name, Point pos,Dimension size,Color border,Color inner,int strength){
         rnd = new Random();
         broken = false;
@@ -47,12 +55,20 @@ abstract public class Brick  {
 
     }
 
+    /**
+     * @return return a random value
+     */
     public static Random getRnd() {
         return rnd;
     }
 
     protected abstract Shape makeBrickFace(Point pos,Dimension size);
 
+    /**
+     * @param point position of the brick
+     * @param dir direction of the impact
+     * @return true if it's not broken, false if it's broken
+     */
     public  boolean setImpact(Point2D point , int dir){
         if(broken)
             return false;
@@ -62,17 +78,25 @@ abstract public class Brick  {
 
     public abstract Shape getBrick();
 
-
-
+    /**
+     * @return return a border color
+     */
     public Color getBorderColor(){
         return  border;
     }
 
+    /**
+     * @return return a inner color
+     */
     public Color getInnerColor(){
         return inner;
     }
 
 
+    /**
+     * @param b ball
+     * @return the side of impact on brick
+     */
     public final int findImpact(Ball b){
         if(broken)
             return 0;
@@ -88,15 +112,24 @@ abstract public class Brick  {
         return out;
     }
 
+    /**
+     * @return true if its broken vice versa
+     */
     public final boolean isBroken(){
         return broken;
     }
 
+    /**
+     * reset the strength of bricks
+     */
     public void repair() {
         broken = false;
         strength = fullStrength;
     }
 
+    /**
+     * decrement strength value of brick
+     */
     public void impact(){
         strength--;
         broken = (strength == 0);

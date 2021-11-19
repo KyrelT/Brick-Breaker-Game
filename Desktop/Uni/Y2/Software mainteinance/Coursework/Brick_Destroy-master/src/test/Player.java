@@ -41,7 +41,7 @@ public class Player {
      * @param ballPoint the position of the ball on the player's rectangle
      * @param width the width of the player
      * @param height the height of the player
-     * @param container
+     * @param container limits the movement range of the player
      */
     public Player(Point ballPoint,int width,int height,Rectangle container) {
         this.ballPoint = ballPoint;
@@ -66,6 +66,9 @@ public class Player {
         return playerFace.contains(b.getPosition()) && playerFace.contains(b.down) ;
     }
 
+    /**
+     *
+     */
     public void move(){
         double x = ballPoint.getX() + moveAmount;
         if(x < min || x > max)

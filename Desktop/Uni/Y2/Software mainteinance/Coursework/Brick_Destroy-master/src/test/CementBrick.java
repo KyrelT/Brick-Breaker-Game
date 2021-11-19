@@ -72,8 +72,8 @@ public class CementBrick extends Brick {
      */
     private void updateBrick(){
         if(!super.isBroken()){
-            GeneralPath gp = crack.draw();
-            gp.append(super.brickFace,false);
+            GeneralPath gp = crack.draw(); // GP = geometrical lines
+            gp.append(super.brickFace,false); // so that crack lines don't connect each other
             brickFace = gp;
         }
     }

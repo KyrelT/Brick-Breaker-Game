@@ -30,7 +30,7 @@ public class RubberBall extends Ball {
 
 
     /**
-     * @param center center position of the ball
+     * @param center center coordinate of the ball
      */
     public RubberBall(Point2D center){
         super(center,DEF_RADIUS,DEF_RADIUS,DEF_INNER_COLOR,DEF_BORDER_COLOR);
@@ -38,10 +38,10 @@ public class RubberBall extends Ball {
 
 
     /**
-     * @param center  to position the ball center at the start of the game
-     * @param radiusA the Y-axis radius of the ball
+     * @param center  center coordinate of the ball
+     * @param radiusA the Y-axis radius of the ball //!!!!! check
      * @param radiusB the X-axis radius of the ball
-     * @return
+     * @return a frame of a rectangle
      */
     @Override
     protected Shape makeBall(Point2D center, int radiusA, int radiusB) {

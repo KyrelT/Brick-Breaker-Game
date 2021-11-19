@@ -67,10 +67,10 @@ public class Wall {
         makeBall(ballPos);
         int speedX,speedY;
         do{
-            speedX = rnd.nextInt(5) - 2;
+            speedX = rnd.nextInt(5) - 2; // changing speed of the ball , when speed = 0, speedX keeps random-ing number , <=0 then left
         }while(speedX == 0);
         do{
-            speedY = -rnd.nextInt(3);
+            speedY = -rnd.nextInt(3);// negative = upwards
         }while(speedY == 0);
 
         ball.setSpeed(speedX,speedY);

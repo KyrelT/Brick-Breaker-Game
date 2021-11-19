@@ -25,6 +25,7 @@ abstract public class Ball {
     private int speedX;
     private int speedY;
 
+
     /**
      * @param center to center the ball at the start of the game
      * @param radiusA the Y-axis radius of the ball
@@ -40,7 +41,7 @@ abstract public class Ball {
         left = new Point2D.Double();
         right = new Point2D.Double();
 
-        up.setLocation(center.getX(),center.getY()-(radiusB/2));   //what is radius for
+        up.setLocation(center.getX(),center.getY()-(radiusB/2));
         down.setLocation(center.getX(),center.getY()+(radiusB/2));
 
         left.setLocation(center.getX()-(radiusA /2),center.getY());
@@ -101,10 +102,16 @@ abstract public class Ball {
      */
     public void setYSpeed(int s){  speedY = s;}
 
+    /**
+     * ball repels to opposite direction after impact
+     */
     public void reverseX(){
         speedX *= -1;
     }
 
+    /**
+     * ball repels to opposite direction after impact
+     */
     public void reverseY(){
         speedY *= -1;
     }
@@ -142,7 +149,7 @@ abstract public class Ball {
     }
 
     /**
-     * @param p the position of the ball
+     * @param p the starting position of the ball
      */
     public void moveTo(Point p){
         center.setLocation(p);
@@ -155,7 +162,7 @@ abstract public class Ball {
         ballFace = tmp;
     }
 
-    private void setPoints(double width,double height){
+    private void setPoints(double width,double height){ // SKIPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
         up.setLocation(center.getX(),center.getY()-(height / 2));
         down.setLocation(center.getX(),center.getY()+(height / 2));
 
