@@ -55,7 +55,7 @@ public class Player {
     /**
      * @param width value for the width of the rectangle
      * @param height value for the height of the rectangle
-     * @return
+     * @return return a rectangle shape
      */
     private Rectangle makeRectangle(int width,int height){
         Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());

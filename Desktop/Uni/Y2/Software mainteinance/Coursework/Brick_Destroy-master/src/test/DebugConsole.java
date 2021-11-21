@@ -53,9 +53,6 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.pack();
     }
 
-    /**
-     *
-     */
     private void initialize(){
         this.setModal(true);
         this.setTitle(TITLE);
