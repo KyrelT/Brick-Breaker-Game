@@ -66,13 +66,8 @@ public class Wall {
 
         makeBall(ballPos);
         int speedX,speedY;
-        do{
-            speedX = rnd.nextInt(5) - 2; // changing speed of the ball , when speed = 0, speedX keeps random-ing number , <=0 then left
-        }while(speedX == 0);
-        do{
-            speedY = -rnd.nextInt(3);// negative = upwards
-        }while(speedY == 0);
-
+            speedX = 8; // changing speed of the ball , when speed = 0, speedX keeps random-ing number , <=0 then left
+            speedY = -3;// negative = upwards
         ball.setSpeed(speedX,speedY);
 
         player = new Player((Point) ballPos.clone(),150,10, drawArea);
@@ -295,18 +290,14 @@ public class Wall {
     }
 
     /**
-     * reset the ball onto the player's rectangle if the player lost the ball
+     * reset the ball onto the player's rectangle if the player lost the ball or the next level
      */
     public void ballReset(){
         player.moveTo(startPoint);
         ball.moveTo(startPoint);
         int speedX,speedY;
-        do{
-            speedX = rnd.nextInt(5) - 2;
-        }while(speedX == 0);
-        do{
-            speedY = -rnd.nextInt(3);
-        }while(speedY == 0);
+            speedX = 8;
+            speedY = -3;
 
         ball.setSpeed(speedX,speedY);
         ballLost = false;
