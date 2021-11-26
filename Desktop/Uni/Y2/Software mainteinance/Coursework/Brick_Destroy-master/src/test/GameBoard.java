@@ -35,6 +35,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private static final String OPTIONS = "Options";
     private static final String EXIT = "Exit";
     private static final String PAUSE = "Pause Menu";
+    private static final String BACK = "Back";
     private static final int TEXT_SIZE = 30;
     private static final Color MENU_COLOR = new Color(100,205,150);
     private static final Color TEXT_COLOR = new Color(116, 52, 166);
@@ -59,12 +60,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private Font AFont;
     private Font DFont;
     private Font SpaceFont;
+    private Font BackFont;
 
     private Rectangle continueButtonRect;
     private Rectangle exitButtonRect;
     private Rectangle restartButtonRect;
     private Rectangle instructionsButtonRect;
     private Rectangle optionsButtonRect;
+    private Rectangle backButton;
     private int strLen;
 
     private DebugConsole debugConsole;
@@ -123,6 +126,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         AFont = new Font("Noto Mono",Font.BOLD,25);
         DFont = new Font("Noto Mono",Font.BOLD,25);
         SpaceFont = new Font("Noto Mono",Font.BOLD,25);
+        BackFont = new Font("Noto Mono",Font.BOLD,25);
 
     }
 
@@ -232,7 +236,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
     private void drawInstructions(Graphics2D g2d){
         obscureGameBoard(g2d);
-        g2d.setColor(BG_COLOR); // background color
+        g2d.setColor(new Color(180,240,180)); // background color
         Rectangle InstructionFace = new Rectangle(new Point(0, 0), new Dimension(600,450));
         g2d.fill(InstructionFace);
 
@@ -244,6 +248,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         Rectangle2D ARect = AFont.getStringBounds("A To Move Left",frc);
         Rectangle2D DRect = DFont.getStringBounds("D To Move Right",frc);
         Rectangle2D SpaceRect = SpaceFont.getStringBounds("Spacebar To Pause the Game",frc);
+        Rectangle2D Back = BackFont.getStringBounds("Back",frc);
 
         int sX = 200;
         int sY = 60;
@@ -266,6 +271,29 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         g2d.setFont(SpaceFont);
         g2d.drawString("Spacebar To Pause the Game",sX,sY);
+
+        Font tmpFont = g2d.getFont();
+        Color tmpColor = g2d.getColor();
+
+        g2d.setFont(BackFont);
+        g2d.setColor(Color.BLACK);
+
+        int x = 500;
+        int y = 30;
+
+        if(strLen == 0){
+            strLen = BackFont.getStringBounds(BACK,frc).getBounds().width;
+        }
+
+        if(backButton == null){
+            backButton = BackFont.getStringBounds(BACK,frc).getBounds();
+            backButton.setLocation(x,y-backButton.height);
+        }
+
+        g2d.drawString(BACK,x,y);
+
+        g2d.setFont(tmpFont);
+        g2d.setColor(tmpColor);
 
 
     }
@@ -428,6 +456,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             showPauseMenu = false;
             repaint();
         }
+        else if (backButton.contains(p)){
+            showPauseMenu = true;
+            repaint();
+        }
 
     }
 
@@ -462,6 +494,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         if(exitButtonRect != null && showPauseMenu) {
             if (exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p) || instructionsButtonRect.contains(p) || optionsButtonRect.contains(p))
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            else
+                this.setCursor(Cursor.getDefaultCursor());
+        }
+        else if(backButton != null && showInstructions){
+            if(backButton.contains(p)){
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
             else
                 this.setCursor(Cursor.getDefaultCursor());
         }
