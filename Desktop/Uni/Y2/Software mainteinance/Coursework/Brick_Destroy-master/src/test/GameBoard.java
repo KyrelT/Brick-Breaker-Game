@@ -21,6 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
 
 
 /**
@@ -36,6 +37,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private static final String PAUSE = "Pause Menu";
     private static final int TEXT_SIZE = 30;
     private static final Color MENU_COLOR = new Color(100,205,150);
+    private static final Color TEXT_COLOR = new Color(116, 52, 166);
 
 
     private static final int DEF_WIDTH = 600;
@@ -53,6 +55,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private boolean showInstructions;
 
     private Font menuFont;
+    private Font TitleFont;
+    private Font AFont;
+    private Font DFont;
+    private Font SpaceFont;
 
     private Rectangle continueButtonRect;
     private Rectangle exitButtonRect;
@@ -113,6 +119,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
             repaint();
         });
+        TitleFont = new Font("Noto Mono",Font.BOLD,30);
+        AFont = new Font("Noto Mono",Font.BOLD,25);
+        DFont = new Font("Noto Mono",Font.BOLD,25);
+        SpaceFont = new Font("Noto Mono",Font.BOLD,25);
 
     }
 
@@ -148,8 +158,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         if(showPauseMenu)
             drawMenu(g2d);
 
-        //if(showInstructions)
-            //drawInstructions(g2d);
+        if(showInstructions)
+            drawInstructions(g2d);
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -219,7 +229,45 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private void drawMenu(Graphics2D g2d){
         obscureGameBoard(g2d);
         drawPauseMenu(g2d);
-        //drawInstructions(g2d);
+    }
+    private void drawInstructions(Graphics2D g2d){
+        obscureGameBoard(g2d);
+        g2d.setColor(BG_COLOR); // background color
+        Rectangle InstructionFace = new Rectangle(new Point(0, 0), new Dimension(600,450));
+        g2d.fill(InstructionFace);
+
+        g2d.setColor(TEXT_COLOR);
+
+        FontRenderContext frc = g2d.getFontRenderContext();
+
+        Rectangle2D TitleRect = TitleFont.getStringBounds(INSTRUCTIONS,frc);
+        Rectangle2D ARect = AFont.getStringBounds("A To Move Left",frc);
+        Rectangle2D DRect = DFont.getStringBounds("D To Move Right",frc);
+        Rectangle2D SpaceRect = SpaceFont.getStringBounds("Spacebar To Pause the Game",frc);
+
+        int sX = 200;
+        int sY = 60;
+
+        g2d.setFont(TitleFont);
+        g2d.drawString(INSTRUCTIONS,sX,sY);
+
+        sX = 80;
+        sY = 130;
+
+        g2d.setFont(AFont);
+        g2d.drawString("A To Move Left",sX,sY);
+
+        sY *= 1.5;
+
+        g2d.setFont(DFont);
+        g2d.drawString("D To Move Right",sX,sY);
+
+        sY *= 1.4;
+
+        g2d.setFont(SpaceFont);
+        g2d.drawString("Spacebar To Pause the Game",sX,sY);
+
+
     }
 
     /**
