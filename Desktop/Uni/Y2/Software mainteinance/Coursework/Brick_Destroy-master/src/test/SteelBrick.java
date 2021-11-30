@@ -33,6 +33,8 @@ public class SteelBrick extends Brick {
     private static final int STEEL_STRENGTH = 1;
     private static final double STEEL_PROBABILITY = 0.4;
 
+    private boolean isSteelBall;
+
     private Random rnd;
     private Shape brickFace;
 
@@ -70,11 +72,19 @@ public class SteelBrick extends Brick {
         return  super.isBroken();
     }
 
+    public void checkBall(){
+        //if
+    }
+
     /**
      * impact of the
      */
     public void impact(){
         if(rnd.nextDouble() < STEEL_PROBABILITY){
+            super.impact();
+        }
+        else if(isSteelBall){
+            super.impact();
             super.impact();
         }
     }

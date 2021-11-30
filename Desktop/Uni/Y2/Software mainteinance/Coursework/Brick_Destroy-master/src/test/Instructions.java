@@ -208,12 +208,12 @@ public class Instructions extends JComponent implements KeyListener, MouseListen
         switch(keyEvent.getKeyCode()){
             case KeyEvent.VK_A:
                 if (xcoor!=0) {
-                    xcoor -= 10;
+                    xcoor -= 30;
                 }
                 break;
             case KeyEvent.VK_D:
                 if (xcoor!=450) {
-                    xcoor += 10;
+                    xcoor += 30;
                 }
                 break;
             default:

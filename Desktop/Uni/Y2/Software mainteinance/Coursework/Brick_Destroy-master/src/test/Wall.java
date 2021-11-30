@@ -42,8 +42,11 @@ public class Wall {
 
     private Point startPoint;
     private int brickCount;
+    private int CurrentHighScore;
     private int ballCount;
+    private int FinalHighScore;
     private boolean ballLost;
+
 
     /**
      * @param drawArea the area of the wall
@@ -212,11 +215,15 @@ public class Wall {
         ball.move();
     }
 
+    public int getCurrentHighScore() {
+        return CurrentHighScore;
+    }
+
     /**
      * a method to checks if there is any impact on the wall or border
      */
     public void findImpacts(){
-        if(player.impact(ball)){
+        if(player.impaccdt(ball)){
             ball.reverseY();
         }
         else if(impactWall()){
@@ -224,6 +231,7 @@ public class Wall {
             * because for every brick program checks for horizontal and vertical impacts
             */
             brickCount--;
+            CurrentHighScore++;
         }
         else if(impactBorder()) {
             ball.reverseX();
@@ -231,7 +239,7 @@ public class Wall {
         else if(ball.getPosition().getY() < area.getY()){
             ball.reverseY();
         }
-        else if(ball.getPosition().getY() > area.getY() + area.getHeight()){
+        else if(ball.getPosition().getY() > area.getY() + area.getHeight()+ 100){
             ballCount--;
             ballLost = true;
         }
@@ -303,11 +311,17 @@ public class Wall {
         ballLost = false;
     }
 
+    public int getFinalHighScore() {
+        return FinalHighScore;
+    }
+
     public void wallReset(){
         for(Brick b : bricks)
             b.repair();
         brickCount = bricks.length;
         ballCount = 3;
+        FinalHighScore = CurrentHighScore;
+        CurrentHighScore = 0;
     }
 
     public boolean ballEnd(){
