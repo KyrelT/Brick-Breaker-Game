@@ -34,7 +34,9 @@ abstract public class Brick  {
     private int strength;
 
     private boolean broken;
+    private boolean isSpecialBall;
 
+    private SpecialBall specialBall;
 
     /**
      * @param name type of the brick
@@ -131,8 +133,13 @@ abstract public class Brick  {
      * decrement strength value of brick
      */
     public void impact(){
-        strength--;
-        broken = (strength == 0);
+        if (isSpecialBall){
+            strength = 0;
+        }
+        else {
+            strength--;
+        }
+        broken = (strength==0);
     }
 
 }

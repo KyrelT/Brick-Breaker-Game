@@ -24,11 +24,12 @@ import java.util.Random;
 
 public class Wall {
 
-    private static final int LEVELS_COUNT = 4;
+    private static final int LEVELS_COUNT = 5;
 
     private static final int CLAY = 1;
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
+    private static final int DIAMOND = 4;
 
     private Random rnd;
     private Rectangle area;
@@ -186,7 +187,7 @@ public class Wall {
     /**
      * @param ballPos coordinates of the position of the ball
      */
-    private void makeBall(Point2D ballPos){
+    private void makeBall(Point2D ballPos){ // where i can make the ball change
         ball = new RubberBall(ballPos);
     }
 
@@ -204,6 +205,7 @@ public class Wall {
         tmp[1] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CEMENT);
         tmp[2] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
         tmp[3] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
+        tmp[4] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,DIAMOND,CEMENT);
         return tmp;
     }
 
@@ -223,7 +225,7 @@ public class Wall {
      * a method to checks if there is any impact on the wall or border
      */
     public void findImpacts(){
-        if(player.impaccdt(ball)){
+        if(player.impact(ball)){
             ball.reverseY();
         }
         else if(impactWall()){
@@ -370,6 +372,9 @@ public class Wall {
                 break;
             case CEMENT:
                 out = new CementBrick(point, size);
+                break;
+            case DIAMOND:
+                out = new DiamondBrick(point,size);
                 break;
             default:
                 throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));

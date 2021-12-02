@@ -202,6 +202,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(tmp);
     }
 
+    private void drawPower(Graphics2D g2d){
+        
+    }
+
     /**
      * @param ball ball object
      * @param g2d graphics for ball

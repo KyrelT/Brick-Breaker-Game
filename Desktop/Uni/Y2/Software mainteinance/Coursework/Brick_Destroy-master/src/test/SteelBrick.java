@@ -83,10 +83,6 @@ public class SteelBrick extends Brick {
         if(rnd.nextDouble() < STEEL_PROBABILITY){
             super.impact();
         }
-        else if(isSteelBall){
-            super.impact();
-            super.impact();
-        }
     }
 
 }
