@@ -21,7 +21,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
 
 /**
@@ -40,22 +42,29 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private static final Color MENU_COLOR = new Color(100,205,150);
     private static final Color TEXT_COLOR = new Color(116, 52, 166);
 
-
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
 
     private static final Color BG_COLOR = Color.WHITE;
+    public Point2D down;
 
-    private Timer gameTimer;
+    public Timer gameTimer;
 
     private Wall wall;
+    private Brick brick;
+
+    private Random rnd;
 
     private String message;
+    private String message2;
     private String highScoreMessage;
 
     private boolean showPauseMenu;
     private boolean showInstructions;
     private boolean showleaderboard;
+
+    public boolean collected;
+    public boolean ispowerSpawn;
 
     private Font menuFont;
     private Font TitleFont;
@@ -77,6 +86,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private String name;
     private int option;
 
+    public int randx;
+    public int randy;
+    public int ycoor;
+    private Point2D center;
+    private Powerup p;
+    private Ball oop;
+
 
     /**
      * @param owner owner
@@ -90,6 +106,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
 
+        rnd = new Random();
 
         this.initialize();
         message = "";
@@ -98,7 +115,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         debugConsole = new DebugConsole(owner,wall,this);
         //initialize the first level
         wall.nextLevel();
-
         gameTimer = new Timer(10,e ->{ // for every 10 secs, it will check for any updates in the game
             wall.move();                     // for example if you change the value 10 into 1000 the updates on the game will be very slow
             wall.findImpacts();
@@ -117,6 +133,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             else if(wall.isDone()){
                 if(wall.hasLevel()){
                     message = "Go to Next Level";
+                    message2 = "Perfect Level!!";
                     gameTimer.stop();
                     wall.ballReset();
                     wall.wallReset();
@@ -127,7 +144,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     gameTimer.stop();
                 }
             }
-
+            if(wall.p != null){
+                wall.p.drop();
+                this.p = wall.p;
+                if(wall.player.getPlayerFace().contains(p.getPowerup().getLocation())){
+                    System.out.print("HI");
+                    collected = true;
+                }
+            }
             repaint();
         });
         TitleFont = new Font("Noto Mono",Font.BOLD,30);
@@ -161,6 +185,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         drawBall(wall.ball,g2d);
 
+        if (wall.isPowerup) {
+            drawPower(g2d);
+//            showdrawPower = true;
+        }
+
         for(Brick b : wall.bricks)
             if(!b.isBroken())
                 drawBrick(b,g2d);
@@ -174,6 +203,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             drawInstructions(g2d);
         if(showleaderboard)
             drawLeaderboard(g2d);
+
+/*        if (wall.isPowerup) {
+                drawPower(g2d);
+                showdrawPower = true;
+        }*/
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -191,7 +225,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      */
     private void drawBrick(Brick brick,Graphics2D g2d){
         Color tmp = g2d.getColor();
-
         g2d.setColor(brick.getInnerColor());
         g2d.fill(brick.getBrick());
 
@@ -203,7 +236,19 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     private void drawPower(Graphics2D g2d){
-        
+        //randx = rnd.nextInt(150) +190;
+        //randy = rnd.nextInt(30) + 30;
+        g2d.setColor(new Color(0,0,0));
+        g2d.fill(p.getPowerup());
+//        if (ycoor==450||Powerup.powercollected()){
+//            wall.isPowerup = false;
+//            showdrawPower =false;
+//        }
+    }
+
+    private Rectangle makeRectangle(int x,int y,int width,int height){
+        Point p = new Point((int)(x),y);
+        return  new Rectangle(p,new Dimension(width,height));
     }
 
     /**
@@ -560,5 +605,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 showleaderboard = false;
                 repaint();
         }
+    }
+
+    public Point2D getPosition() {
+        return center;
+    }
+
+    public boolean ispowerSpawn() {
+        return ispowerSpawn;
     }
 }

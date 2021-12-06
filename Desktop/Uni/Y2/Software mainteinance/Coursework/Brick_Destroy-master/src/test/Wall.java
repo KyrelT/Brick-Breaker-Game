@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class Wall {
 
-    private static final int LEVELS_COUNT = 5;
+    private static final int LEVELS_COUNT = 7;
 
     private static final int CLAY = 1;
     private static final int STEEL = 2;
@@ -37,16 +37,24 @@ public class Wall {
     Brick[] bricks;
     Ball ball;
     Player player;
+    Powerup powerup;
+    GameBoard gameBoard;
 
     private Brick[][] levels;
     private int level;
 
-    private Point startPoint;
+    public Point startPoint;
     private int brickCount;
     private int CurrentHighScore;
     private int ballCount;
     private int FinalHighScore;
+    private int spawnPower;
+    private int spawnProbs = 2;
+
     private boolean ballLost;
+    public boolean isPowerup;
+    public Powerup p;
+    public Ball oop;
 
 
     /**
@@ -69,6 +77,7 @@ public class Wall {
         rnd = new Random();
 
         makeBall(ballPos);
+
         int speedX,speedY;
             speedX = 8; // changing speed of the ball , when speed = 0, speedX keeps random-ing number , <=0 then left
             speedY = -3;// negative = upwards
@@ -187,8 +196,8 @@ public class Wall {
     /**
      * @param ballPos coordinates of the position of the ball
      */
-    private void makeBall(Point2D ballPos){ // where i can make the ball change
-        ball = new RubberBall(ballPos);
+    public void makeBall(Point2D ballPos){ // where i can make the ball change
+            ball = new RubberBall(ballPos);
     }
 
     /**
@@ -205,7 +214,9 @@ public class Wall {
         tmp[1] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CEMENT);
         tmp[2] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
         tmp[3] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
-        tmp[4] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,DIAMOND,CEMENT);
+        tmp[4] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,DIAMOND);
+        tmp[5] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,DIAMOND,CEMENT);
+        tmp[6] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,DIAMOND,STEEL);
         return tmp;
     }
 
@@ -228,12 +239,24 @@ public class Wall {
         if(player.impact(ball)){
             ball.reverseY();
         }
+/*        else if (player.impact(powerup)){
+            Powerup.powercollected();
+        }*/
         else if(impactWall()){
             /*for efficiency reverse is done into method impactWall
             * because for every brick program checks for horizontal and vertical impacts
             */
+/*            spawnPower = rnd.nextInt(2);
+            if (spawnPower == spawnProbs){
+                isPowerup = true;
+            }*/
+            isPowerup = true;
+            this.p = new Powerup(ball.getPosition());
             brickCount--;
             CurrentHighScore++;
+/*            if (gameBoard.collected){
+                CurrentHighScore += 10;
+            }*/
         }
         else if(impactBorder()) {
             ball.reverseX();
@@ -305,6 +328,8 @@ public class Wall {
     public void ballReset(){
         player.moveTo(startPoint);
         ball.moveTo(startPoint);
+
+
         int speedX,speedY;
             speedX = 8;
             speedY = -3;

@@ -28,12 +28,12 @@ import java.util.Random;
 public class SteelBrick extends Brick {
 
     private static final String NAME = "Steel Brick";
-    private static final Color DEF_INNER = new Color(203, 203, 201);
+    private static final Color DEF_INNER = new Color(170, 90, 1);
     private static final Color DEF_BORDER = Color.BLACK;
     private static final int STEEL_STRENGTH = 1;
     private static final double STEEL_PROBABILITY = 0.4;
 
-    private boolean isSteelBall;
+    private boolean isSpecialBall;
 
     private Random rnd;
     private Shape brickFace;
@@ -81,6 +81,9 @@ public class SteelBrick extends Brick {
      */
     public void impact(){
         if(rnd.nextDouble() < STEEL_PROBABILITY){
+            super.impact();
+        }
+        else if (isSpecialBall){
             super.impact();
         }
     }

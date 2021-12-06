@@ -32,11 +32,14 @@ abstract public class Brick  {
 
     private int fullStrength;
     private int strength;
+    public int randx;
+    public int randy;
 
     private boolean broken;
-    private boolean isSpecialBall;
-
+    public boolean isSpecialBall;
+    public Powerup powerup;
     private SpecialBall specialBall;
+    private Wall wall;
 
     /**
      * @param name type of the brick
@@ -54,7 +57,8 @@ abstract public class Brick  {
         this.border = border;
         this.inner = inner;
         this.fullStrength = this.strength = strength;
-
+        this.wall = wall;
+        //isSpecialBall = true;
     }
 
     /**
@@ -77,6 +81,7 @@ abstract public class Brick  {
         impact();
         return  broken;
     }
+
 
     public abstract Shape getBrick();
 
@@ -111,6 +116,7 @@ abstract public class Brick  {
             out = DOWN_IMPACT;
         else if(brickFace.contains(b.down))
             out = UP_IMPACT;
+
         return out;
     }
 
@@ -138,8 +144,10 @@ abstract public class Brick  {
         }
         else {
             strength--;
+            //wall.isPowerup = true;
         }
         broken = (strength==0);
+
     }
 
 }
