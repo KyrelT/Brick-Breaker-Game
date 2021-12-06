@@ -55,6 +55,14 @@ public class Wall {
     public Powerup p;
     public Ball oop;
 
+    public Ball getBall() {
+        return ball;
+    }
+
+    public void setBrickCount(int brickCount) {
+        this.brickCount = brickCount;
+    }
+
     /**
      * @param drawArea the area of the wall
      * @param brickCount the amount of brick
