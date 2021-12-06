@@ -48,14 +48,12 @@ public class Wall {
     private int CurrentHighScore;
     private int ballCount;
     private int FinalHighScore;
-    private int spawnPower;
-    private int spawnProbs = 2;
+    private boolean collected;
 
     private boolean ballLost;
     public boolean isPowerup;
     public Powerup p;
     public Ball oop;
-
 
     /**
      * @param drawArea the area of the wall
@@ -232,6 +230,10 @@ public class Wall {
         return CurrentHighScore;
     }
 
+    public void setCollected(boolean collected) {
+        this.collected = collected;
+    }
+
     /**
      * a method to checks if there is any impact on the wall or border
      */
@@ -246,17 +248,10 @@ public class Wall {
             /*for efficiency reverse is done into method impactWall
             * because for every brick program checks for horizontal and vertical impacts
             */
-/*            spawnPower = rnd.nextInt(2);
-            if (spawnPower == spawnProbs){
-                isPowerup = true;
-            }*/
             isPowerup = true;
             this.p = new Powerup(ball.getPosition());
             brickCount--;
             CurrentHighScore++;
-/*            if (gameBoard.collected){
-                CurrentHighScore += 10;
-            }*/
         }
         else if(impactBorder()) {
             ball.reverseX();
@@ -267,6 +262,10 @@ public class Wall {
         else if(ball.getPosition().getY() > area.getY() + area.getHeight()+ 100){
             ballCount--;
             ballLost = true;
+        }
+        if (collected){
+            CurrentHighScore += 2;
+            collected = false;
         }
     }
 

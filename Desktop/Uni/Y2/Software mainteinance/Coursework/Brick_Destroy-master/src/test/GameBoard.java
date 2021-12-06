@@ -86,12 +86,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private String name;
     private int option;
 
-    public int randx;
-    public int randy;
-    public int ycoor;
     private Point2D center;
     private Powerup p;
-    private Ball oop;
 
 
     /**
@@ -118,6 +114,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         gameTimer = new Timer(10,e ->{ // for every 10 secs, it will check for any updates in the game
             wall.move();                     // for example if you change the value 10 into 1000 the updates on the game will be very slow
             wall.findImpacts();
+            //t++;
             message = String.format("Bricks: %d Balls %d Score: %d",wall.getBrickCount(),wall.getBallCount(),wall.getCurrentHighScore());
 //            highScoreMessage = String.format("Score: %d",wall.getCurrentHighScore());
             if(wall.isBallLost()){
@@ -144,14 +141,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     gameTimer.stop();
                 }
             }
-            if(wall.p != null){
-                wall.p.drop();
-                this.p = wall.p;
-                if(wall.player.getPlayerFace().contains(p.getPowerup().getLocation())){
-                    System.out.print("HI");
-                    collected = true;
+                if (wall.p != null) {
+                    wall.p.drop();
+                    this.p = wall.p;
+                    if (wall.player.getPlayerFace().contains(p.getPowerup().getLocation())) {
+                        System.out.print("add bonus score\n");
+                        wall.setCollected(true);
+                    }
                 }
-            }
             repaint();
         });
         TitleFont = new Font("Noto Mono",Font.BOLD,30);
@@ -187,7 +184,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         if (wall.isPowerup) {
             drawPower(g2d);
-//            showdrawPower = true;
         }
 
         for(Brick b : wall.bricks)
@@ -203,11 +199,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             drawInstructions(g2d);
         if(showleaderboard)
             drawLeaderboard(g2d);
-
-/*        if (wall.isPowerup) {
-                drawPower(g2d);
-                showdrawPower = true;
-        }*/
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -236,14 +227,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
     private void drawPower(Graphics2D g2d){
-        //randx = rnd.nextInt(150) +190;
-        //randy = rnd.nextInt(30) + 30;
         g2d.setColor(new Color(0,0,0));
         g2d.fill(p.getPowerup());
-//        if (ycoor==450||Powerup.powercollected()){
-//            wall.isPowerup = false;
-//            showdrawPower =false;
-//        }
     }
 
     private Rectangle makeRectangle(int x,int y,int width,int height){

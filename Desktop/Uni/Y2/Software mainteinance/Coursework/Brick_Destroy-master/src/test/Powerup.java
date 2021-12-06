@@ -22,12 +22,8 @@ public class Powerup {
     }
 
     public void drop(){
-        y += 5;
+        y += 8;
         getPowerup().setLocation((int) x,(int) y);
-    }
-
-    public boolean powercollected() {
-        return isPowerCollected;
     }
 
     public Rectangle getPowerup() {
