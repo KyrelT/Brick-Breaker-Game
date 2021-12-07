@@ -84,6 +84,10 @@ public class Player {
         moveAmount = -DEF_MOVE_AMOUNT;
     }
 
+    public int getMoveAmount() {
+        return moveAmount;
+    }
+
     /**
      * allow player to move right
      */

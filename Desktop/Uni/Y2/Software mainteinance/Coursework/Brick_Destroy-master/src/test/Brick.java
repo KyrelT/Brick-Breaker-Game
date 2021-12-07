@@ -32,13 +32,8 @@ abstract public class Brick  {
 
     private int fullStrength;
     private int strength;
-    public int randx;
-    public int randy;
 
     private boolean broken;
-    public boolean isSpecialBall;
-    public Powerup powerup;
-    private SpecialBall specialBall;
     private Wall wall;
 
     /**
@@ -58,7 +53,6 @@ abstract public class Brick  {
         this.inner = inner;
         this.fullStrength = this.strength = strength;
         this.wall = wall;
-        //isSpecialBall = true;
     }
 
     /**
@@ -127,6 +121,14 @@ abstract public class Brick  {
         return broken;
     }
 
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getFullStrength() {
+        return fullStrength;
+    }
+
     /**
      * reset the strength of bricks
      */
@@ -139,13 +141,7 @@ abstract public class Brick  {
      * decrement strength value of brick
      */
     public void impact(){
-        if (isSpecialBall){
-            strength = 0;
-        }
-        else {
-            strength--;
-            //wall.isPowerup = true;
-        }
+        strength--;
         broken = (strength==0);
 
     }
