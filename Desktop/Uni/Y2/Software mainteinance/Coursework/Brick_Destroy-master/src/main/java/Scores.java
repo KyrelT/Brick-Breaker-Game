@@ -18,7 +18,6 @@ public class Scores implements Comparable{
 
     public int compareTo(Object b) {
         int comparescore = ((Scores)b).getHighscore();
-        //return this.highscore - comparescore;
         return -(this.highscore -comparescore) ;
     }
 
