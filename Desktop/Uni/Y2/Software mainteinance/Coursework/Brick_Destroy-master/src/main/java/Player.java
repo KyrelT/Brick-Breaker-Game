@@ -15,11 +15,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test;
+package main.java;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 
 public class Player {
@@ -36,7 +34,10 @@ public class Player {
     private int moveAmount;
     private int min;
     private int max;
+    private static Player PlayerInstance;
 
+    private Player(){
+    }
 
     /**
      * @param ballPoint the position of the ball on the player's rectangle
@@ -44,15 +45,27 @@ public class Player {
      * @param height the height of the player
      * @param container limits the movement range of the player
      */
-    public Player(Point ballPoint,int width,int height,Rectangle container) {
+    private Player(Point ballPoint,int width,int height,Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;
         playerFace = makeRectangle(width, height);
         min = container.x + (width / 2);
         max = min + container.width - width;
-
     }
 
+    public static Player getInstance(){
+        if (PlayerInstance == null){
+            PlayerInstance = new Player();
+        }
+        return PlayerInstance;
+    }
+
+    public static Player getInstance(Point ballPos,int width,int height, Rectangle container){
+        if (PlayerInstance == null){
+            PlayerInstance = new Player(ballPos,width,height,container);
+        }
+        return PlayerInstance;
+    }
 
     /**
      * @param width value for the width of the rectangle

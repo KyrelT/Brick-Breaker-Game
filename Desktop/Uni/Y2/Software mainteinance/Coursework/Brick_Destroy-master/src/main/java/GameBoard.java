@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test;
+package main.java;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +23,7 @@ import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.*;
 import java.util.Random;
 
 
@@ -46,6 +47,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private static final int DEF_HEIGHT = 450;
 
     private static final Color BG_COLOR = Color.WHITE;
+    private static String name;
     public Point2D down;
 
     public Timer gameTimer;
@@ -82,12 +84,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private int strLen;
 
     private DebugConsole debugConsole;
-    private Highscore highscore;
-    private String name;
+//    private Highscore highscore;
+//    private String name;
     private int option;
 
     private Point2D center;
     private Powerup p;
+    private Font ScoreboardFont;
+    private File reader;
 
 
     /**
@@ -118,6 +122,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             message = String.format("Bricks: %d Balls %d Score: %d",wall.getBrickCount(),wall.getBallCount(),wall.getCurrentHighScore());
 //            highScoreMessage = String.format("Score: %d",wall.getCurrentHighScore());
             if(wall.isBallLost()){
+
                 if(wall.ballEnd()){
                     wall.wallReset();
                     message = String.format("Game Over! Your Highscore: %d",wall.getFinalHighScore());
@@ -144,7 +149,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 if (wall.p != null) {
                     wall.p.drop();
                     this.p = wall.p;
-                    if (wall.player.getPlayerFace().contains(p.getPowerup().getLocation())) {
+                    if (Player.getInstance().getPlayerFace().contains(p.getPowerup().getLocation())) { // wall.player
                         System.out.print("add bonus score\n");
                         wall.setCollected(true);
                     }
@@ -159,6 +164,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     }
 
+    public static String getname() {
+        return name;
+    }
 
 
     private void initialize(){
@@ -190,15 +198,21 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             if(!b.isBroken())
                 drawBrick(b,g2d);
 
-        drawPlayer(wall.player,g2d);
+        drawPlayer(Player.getInstance(),g2d);
 
         if(showPauseMenu)
             drawMenu(g2d);
 
         if(showInstructions)
             drawInstructions(g2d);
-        if(showleaderboard)
-            drawLeaderboard(g2d);
+
+        if(showleaderboard) {
+            try {
+                drawLeaderboard(g2d);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -434,11 +448,74 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(tmpColor);
     }
 
-    public void drawLeaderboard(Graphics2D g2d){
+    public void drawLeaderboard(Graphics2D g2d) throws IOException {
         obscureGameBoard(g2d);
         g2d.setColor(new Color(180,240,180)); // background color
         Rectangle InstructionFace = new Rectangle(new Point(0, 0), new Dimension(600,450));
         g2d.fill(InstructionFace);
+
+
+
+        String row = " ";
+        String name = " ";
+        int ranking = 0 ;
+        int highscore ;
+        this.name = name;
+
+
+
+        ScoreboardFont = new Font("Monospaced", Font.PLAIN, TEXT_SIZE);
+
+
+        obscureGameBoard(g2d);
+        FontRenderContext frc = g2d.getFontRenderContext();
+        g2d.setFont(ScoreboardFont);
+
+        Rectangle2D ScoreRect= ScoreboardFont.getStringBounds("hi",frc);
+        Rectangle ScoreboardFace = new Rectangle(new Point(0, 0), new Dimension(600, 450));
+        g2d.fill(ScoreboardFace);
+        int y;
+        g2d.setColor(Color.black);
+
+
+
+
+
+        y=  70;
+
+        g2d.drawString("rank",100,y);
+
+        g2d.drawString("name",200,y);
+
+        g2d.drawString("highscore",350,y);
+
+
+        File reader = new File("src/main/resources/Highscore.txt");
+
+        BufferedReader textread;
+
+        textread = new BufferedReader(new FileReader(reader));
+
+
+        for(int i = 0; i < 10  ; i ++) {
+
+            y +=50 ;
+            row = textread.readLine();
+            if (row != null) {
+                String[] data = row.split(",");
+                ranking = Integer.parseInt(data[2]);
+                name = data[0];
+                highscore = Integer.parseInt(data[1]);
+
+
+                g2d.drawString(String.valueOf(ranking), 100, y);
+                g2d.drawString(name, 200 , y );
+                g2d.drawString(String.valueOf(highscore),350 , y );
+
+
+
+            }
+        }
     }
 
     @Override
@@ -449,10 +526,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     public void keyPressed(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()){
             case KeyEvent.VK_A:
-                wall.player.moveLeft();
+                Player.getInstance().moveLeft();
                 break;
             case KeyEvent.VK_D:
-                wall.player.moveRight();
+                Player.getInstance().moveRight();
                 break;
             case KeyEvent.VK_ESCAPE:
                 showPauseMenu = !showPauseMenu;
@@ -478,13 +555,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 gameTimer.stop();
                 break;
             default:
-                wall.player.stop();
+                Player.getInstance().stop();
         }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        wall.player.stop();
+        Player.getInstance().stop();
     }
 
     @Override
@@ -572,14 +649,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     public void input(){
         name = JOptionPane.showInputDialog(this, "Game over! please input your name");
         this.name = name;
-        Highscore.write();
+        //Highscore.write();
     }
     public void viewLeaderBoard(){
         option = JOptionPane.showConfirmDialog(this,"check out the leaderboard?");
         switch (option){
             case JOptionPane.YES_OPTION:
                 showleaderboard = true;
-                Highscore.read();
+                //Highscore.read();
                 repaint();
                 break;
             case JOptionPane.NO_OPTION:

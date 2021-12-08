@@ -1,6 +1,5 @@
-package test;
+package main.java;
 
-import java.awt.*;
 import java.awt.geom.Point2D;
 
 public class BallFactory {
@@ -9,7 +8,6 @@ public class BallFactory {
             return null;
         if (name.equalsIgnoreCase("RUBBER"))
             return new RubberBall(ballPos);
-
         return null;
     }
 }

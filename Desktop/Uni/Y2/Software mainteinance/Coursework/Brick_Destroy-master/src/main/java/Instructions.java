@@ -1,4 +1,4 @@
-package test;
+package main.java;
 
 import org.w3c.dom.css.Rect;
 

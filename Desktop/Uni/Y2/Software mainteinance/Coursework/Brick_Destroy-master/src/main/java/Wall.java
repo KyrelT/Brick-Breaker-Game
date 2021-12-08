@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test;
+package main.java;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -36,7 +36,7 @@ public class Wall {
 
     Brick[] bricks;
     Ball ball;
-    Player player;
+    //Player player;
     Powerup powerup;
     GameBoard gameBoard;
     BrickFactory brickfactory;
@@ -51,6 +51,7 @@ public class Wall {
     private int ballCount;
     private int FinalHighScore;
     private boolean collected;
+
 
     private boolean ballLost;
     public boolean isPowerup;
@@ -90,7 +91,9 @@ public class Wall {
             speedY = -3;// negative = upwards
         ball.setSpeed(speedX,speedY);
 
-        player = new Player((Point) ballPos.clone(),150,10, drawArea);
+        //player = new ((Point) ballPos.clone(),150,10, drawArea);
+
+        Player.getInstance((Point) ballPos.clone(),150,10,drawArea);
 
         area = drawArea;
 
@@ -232,7 +235,7 @@ public class Wall {
      * a method to move the player and the ball
      */
     public void move(){
-        player.move();
+        Player.getInstance().move();
         ball.move();
     }
 
@@ -248,16 +251,10 @@ public class Wall {
      * a method to checks if there is any impact on the wall or border
      */
     public void findImpacts(){
-        if(player.impact(ball)){
+        if(Player.getInstance().impact(ball)){
             ball.reverseY();
         }
-/*        else if (player.impact(powerup)){
-            Powerup.powercollected();
-        }*/
         else if(impactWall()){
-            /*for efficiency reverse is done into method impactWall
-            * because for every brick program checks for horizontal and vertical impacts
-            */
             isPowerup = true;
             this.p = new Powerup(ball.getPosition());
             brickCount--;
@@ -335,7 +332,7 @@ public class Wall {
      * reset the ball onto the player's rectangle if the player lost the ball or the next level
      */
     public void ballReset(){
-        player.moveTo(startPoint);
+        Player.getInstance().moveTo(startPoint);
         ball.moveTo(startPoint);
 
 

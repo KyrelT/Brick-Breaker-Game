@@ -1,9 +1,8 @@
-package test;
+package main.java;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.util.Random;
 
 public class SpecialBall extends Ball{
     private static final int DEF_RADIUS = 10;
