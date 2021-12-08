@@ -39,6 +39,8 @@ public class Wall {
     Player player;
     Powerup powerup;
     GameBoard gameBoard;
+    BrickFactory brickfactory;
+    BallFactory ballfactory;
 
     private Brick[][] levels;
     private int level;
@@ -53,7 +55,6 @@ public class Wall {
     private boolean ballLost;
     public boolean isPowerup;
     public Powerup p;
-    public Ball oop;
 
     public Ball getBall() {
         return ball;
@@ -203,7 +204,8 @@ public class Wall {
      * @param ballPos coordinates of the position of the ball
      */
     public void makeBall(Point2D ballPos){ // where i can make the ball change
-            ball = new RubberBall(ballPos);
+        ballfactory = new BallFactory();
+            ball = ballfactory.getBallType("RUBBER",ballPos);
     }
 
     /**
@@ -394,19 +396,24 @@ public class Wall {
      * @return brick object
      */
     private Brick makeBrick(Point point, Dimension size, int type){
+        brickfactory = new BrickFactory();
         Brick out;
         switch(type){
             case CLAY:
                 out = new ClayBrick(point,size);
+                out = brickfactory.getBrickType("CLAY",point,size);
                 break;
             case STEEL:
                 out = new SteelBrick(point,size);
+                out = brickfactory.getBrickType("STEEL",point,size);
                 break;
             case CEMENT:
                 out = new CementBrick(point, size);
+                out = brickfactory.getBrickType("CEMENT",point,size);
                 break;
             case DIAMOND:
                 out = new DiamondBrick(point,size);
+                out = brickfactory.getBrickType("DIAMOND",point,size);
                 break;
             default:
                 throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
