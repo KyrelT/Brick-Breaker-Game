@@ -28,6 +28,8 @@ public class Highscore {
         try {
             FileWriter myWriter = new FileWriter("Highscore.txt");
 
+            //FileWriter append = new FileWriter(myWriter,true);
+
 //            myWriter.write("Leaderboard");
             // need to write the score into the leaderboard
 //            myWriter.write(wall.getFinalHighScore());
@@ -36,6 +38,7 @@ public class Highscore {
             System.out.println("An error occurred");
             e.printStackTrace();
         }
+
     }
 
     public static void read(){

@@ -8,7 +8,7 @@ import java.awt.geom.RectangularShape;
  * this abstract class allows other class to implement its methods
  *
  */
-abstract public class Ball {
+abstract public class Ball{
 
     private Shape ballFace;
 
