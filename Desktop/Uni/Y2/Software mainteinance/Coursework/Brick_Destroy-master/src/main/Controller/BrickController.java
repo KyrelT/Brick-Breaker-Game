@@ -44,16 +44,19 @@ public class BrickController {
      * reset the strength of bricks
      */
     public void repair() {
-        a.isBroken() = false;
-        a.getStrength() = a.getFullStrength();
+        a.setBroken(false);
+        a.isBroken();
+        a.setStrength(a.getFullStrength());
     }
 
     /**
      * decrement strength value of brick
      */
     public void impact(){
-        a.getStrength()--;
-        a.isBroken()= (a.getStrength()==0);
-
+        a.setStrength(a.getStrength()-1);
+        if (a.getStrength()==0){
+            a.setBroken(true);
+        }
+        //a.isBroken() = (a.getStrength()==0);
     }
 }

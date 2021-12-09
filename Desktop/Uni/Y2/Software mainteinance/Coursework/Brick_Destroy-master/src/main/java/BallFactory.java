@@ -3,7 +3,7 @@ package main.java;
 import java.awt.geom.Point2D;
 
 public class BallFactory {
-    public Ball getBallType(String name, Point2D ballPos){
+    public BallController getBallType(String name, Point2D ballPos){
         if (name == null)
             return null;
         if (name.equalsIgnoreCase("RUBBER"))

@@ -8,11 +8,42 @@ public class PlayerM {
     public static final Color BORDER_COLOR = Color.GREEN.darker().darker();
     public static final Color INNER_COLOR = Color.GREEN;
 
-    private static final int DEF_MOVE_AMOUNT = 8;
+    public static final int DEF_MOVE_AMOUNT = 8;
 
-    private Rectangle playerFace;
+    public Rectangle playerFace;
+
+    public Point getBallPoint() {
+        return ballPoint;
+    }
+
+    public void setBallPoint(Point ballPoint) {
+        this.ballPoint = ballPoint;
+    }
+
     private Point ballPoint;
+
+    public void setMoveAmount(int moveAmount) {
+        this.moveAmount = moveAmount;
+    }
+
     private int moveAmount;
+
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
     private int min;
     private int max;
     private static PlayerM PlayerInstance;

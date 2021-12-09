@@ -1,5 +1,6 @@
 package main.Model.Brick;
 
+import main.Controller.BrickController;
 import main.java.Wall;
 
 import java.awt.*;
@@ -30,7 +31,7 @@ public class BrickM {
     private int strength;
 
     private boolean broken;
-    private Wall wall;
+    private BrickController b;
 
     /**
      * @param name type of the brick
@@ -48,7 +49,10 @@ public class BrickM {
         this.border = border;
         this.inner = inner;
         this.fullStrength = this.strength = strength;
-/*        this.wall = wall;*/
+    }
+
+    Shape makeBrickFace(Point pos, Dimension size) {
+        return null;
     }
 
     /**
@@ -56,6 +60,10 @@ public class BrickM {
      */
     public static Random getRnd() {
         return rnd;
+    }
+
+    public void setBroken(boolean broken) {
+        this.broken = broken;
     }
 
     public boolean isBroken() {
@@ -70,7 +78,7 @@ public class BrickM {
     public  boolean setImpact(Point2D point , int dir){
         if(broken)
             return false;
-        impact();
+        b.impact();
         return  broken;
     }
 
@@ -95,6 +103,10 @@ public class BrickM {
      */
     public Color getInnerColor(){
         return inner;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
     }
 
     public int getStrength() {

@@ -36,7 +36,6 @@ public class Wall {
 
     Brick[] bricks;
     Ball ball;
-    //Player player;
     Powerup powerup;
     GameBoard gameBoard;
     BrickFactory brickfactory;
@@ -208,7 +207,7 @@ public class Wall {
      */
     public void makeBall(Point2D ballPos){ // where i can make the ball change
         ballfactory = new BallFactory();
-            ball = ballfactory.getBallType("RUBBER",ballPos);
+        ball = ballfactory.getBallType("RUBBER",ballPos);
     }
 
     /**

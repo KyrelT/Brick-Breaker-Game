@@ -1,6 +1,7 @@
 package main.Controller;
 
 import main.Model.Ball.BallM;
+import main.Model.Brick.BrickM;
 import main.Model.Player.PlayerM;
 import main.View.BallView;
 import main.View.PlayerView;
@@ -10,9 +11,12 @@ import java.awt.*;
 
 public class PlayerController {
 
-    PlayerM a;
-    BallM b;
-    Shape playerFace = a.getPlayerFace();
+    BrickController brickc;
+    BallController ballc;
+    BrickM brickm;
+    BallM ballm;
+    PlayerM pm;
+    Shape playerFace = pm.getPlayerFace();
 
     public PlayerController(Point ballPoint,int width,int height,Rectangle container){
         PlayerM mplayer = new PlayerM(ballPoint,width,height,container);
@@ -28,38 +32,38 @@ public class PlayerController {
      *
      */
     public void move(){
-        double x = ballPoint.getX() + moveAmount;
-        if(x < min || x > max)
+        double x = pm.getBallPoint().getX() + pm.getMoveAmount();
+        if(x < pm.getMin() || x > pm.getMax())
             return;
-        ballPoint.setLocation(x,ballPoint.getY());
-        playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
+        pm.getBallPoint().setLocation(x,pm.getBallPoint().getY());
+        pm.playerFace.setLocation(pm.getBallPoint().x - (int)pm.playerFace.getWidth()/2,pm.getBallPoint().y);
     }
 
     /**
      * allow player to move left
      */
     public void moveLeft(){
-        moveAmount = -DEF_MOVE_AMOUNT;
+        pm.setMoveAmount(-PlayerM.DEF_MOVE_AMOUNT);
     }
 
     /**
      * allow player to move right
      */
     public void moveRight(){
-        moveAmount = DEF_MOVE_AMOUNT;
+        pm.setMoveAmount(PlayerM.DEF_MOVE_AMOUNT);
     }
 
     /**
      * stop the player's movement
      */
     public void stop(){
-        moveAmount = 0;
+        pm.setMoveAmount(0);
     }
     /**
      * @param p position of player
      */
     public void moveTo(Point p){
-        ballPoint.setLocation(p);
-        playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
+        pm.getBallPoint().setLocation(p);
+        pm.playerFace.setLocation(pm.getBallPoint().x - (int)pm.playerFace.getWidth()/2,pm.getBallPoint().y);
     }
 }
