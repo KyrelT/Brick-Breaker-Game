@@ -1,14 +1,12 @@
 package main.Model.Brick;
 
-import main.Controller.BrickController;
 import main.java.Wall;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-public class BrickM {
-
+public class BrickModel {
     public static final int MIN_CRACK = 1;
     public static final int DEF_CRACK_DEPTH = 1;
     public static final int DEF_STEPS = 35;
@@ -30,55 +28,49 @@ public class BrickM {
     private int fullStrength;
     private int strength;
 
-    private boolean broken;
-    private BrickController b;
+    public boolean broken;
+    private Wall wall;
 
-    /**
-     * @param name type of the brick
-     * @param pos position of the brick
-     * @param size size of the brick
-     * @param border border color of the brick
-     * @param inner inner color of the brick
-     * @param strength strength of the brick
-     */
-    public BrickM(String name, Point pos, Dimension size, Color border, Color inner, int strength){
+
+/**
+ * @param name type of the brick
+ * @param pos position of the brick
+ * @param size size of the brick
+ * @param border border color of the brick
+ * @param inner inner color of the brick
+ * @param strength strength of the brick
+ */
+
+    public BrickModel(String name, Point pos,Dimension size,Color border,Color inner,int strength){
         rnd = new Random();
         broken = false;
         this.name = name;
-        brickFace = makeBrickFace(pos,size);
         this.border = border;
         this.inner = inner;
         this.fullStrength = this.strength = strength;
+//        this.wall = wall;
     }
 
-    Shape makeBrickFace(Point pos, Dimension size) {
-        return null;
-    }
 
-    /**
-     * @return return a random value
-     */
+/**
+ * @return return a random value
+ */
+
     public static Random getRnd() {
         return rnd;
     }
 
-    public void setBroken(boolean broken) {
-        this.broken = broken;
-    }
 
-    public boolean isBroken() {
-        return broken;
-    }
+/**
+ * @param point position of the brick
+ * @param dir direction of the impact
+ * @return true if it's not broken, false if it's broken
+ */
 
-    /**
-     * @param point position of the brick
-     * @param dir direction of the impact
-     * @return true if it's not broken, false if it's broken
-     */
     public  boolean setImpact(Point2D point , int dir){
         if(broken)
             return false;
-        b.impact();
+        impact();
         return  broken;
     }
 
@@ -87,26 +79,31 @@ public class BrickM {
         return brickFace;
     }
 
-    public Shape getBrick() {
-        return null;
-    }
 
-    /**
-     * @return return a border color
-     */
+/**
+ * @return return a border color
+ */
+
     public Color getBorderColor(){
         return  border;
     }
 
-    /**
-     * @return return a inner color
-     */
+
+/**
+ * @return return a inner color
+ */
+
     public Color getInnerColor(){
         return inner;
     }
 
-    public void setStrength(int strength) {
-        this.strength = strength;
+
+/**
+ * @return true if its broken vice versa
+ */
+
+    public final boolean isBroken(){
+        return broken;
     }
 
     public int getStrength() {
@@ -116,4 +113,35 @@ public class BrickM {
     public int getFullStrength() {
         return fullStrength;
     }
+
+
+/**
+ * reset the strength of bricks
+ */
+
+    public void repair() {
+        broken = false;
+        strength = fullStrength;
+    }
+
+
+/**
+ * decrement strength value of brick
+ */
+
+    public void impact(){
+        setStrength(getStrength()-1);
+        setBroken(getStrength()==0);
+
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public void setBroken(boolean broken) {
+        this.broken = broken;
+    }
+
+
 }

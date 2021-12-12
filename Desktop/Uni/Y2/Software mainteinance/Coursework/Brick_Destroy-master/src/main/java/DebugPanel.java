@@ -17,10 +17,13 @@
  */
 package main.java;
 
+
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+
+import main.java.Wall;
 
 
 
@@ -35,7 +38,7 @@ public class DebugPanel extends JPanel {
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
 
-    private Wall wall;
+    Wall wall;
 
     public DebugPanel(Wall wall){
 

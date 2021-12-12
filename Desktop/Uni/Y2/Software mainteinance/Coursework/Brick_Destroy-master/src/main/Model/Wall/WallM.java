@@ -1,6 +1,11 @@
+/*
 package main.Model.Wall;
 
+import main.Controller.BallController;
+import main.Controller.BrickController;
+import main.Controller.PlayerController;
 import main.Controller.WallController;
+import main.Model.Ball.BallM;
 import main.java.*;
 
 import java.awt.*;
@@ -17,11 +22,16 @@ public class WallM {
     private Random rnd;
     public Rectangle area;
 
-    Brick[] bricks;
-    Ball ball;
-    WallController wc;
+    WallController wallController;
+    private BallController ball;
+    public BrickController brickController;
 
-    public Brick[][] levels;
+    public BrickController[][] levels;
+    private BrickController[] bricks;
+
+    public BrickController[] getBricks() {
+        return bricks;
+    }
 
     public int getLevel() {
         return level;
@@ -49,7 +59,7 @@ public class WallM {
     }
 
     private int CurrentHighScore;
-    private int ballCount;
+    private static int ballCount;
 
     public void setFinalHighScore(int finalHighScore) {
         FinalHighScore = finalHighScore;
@@ -77,43 +87,48 @@ public class WallM {
     public boolean isPowerup;
     public Powerup p;
 
-    public Ball getBall() {
+    public BallController getBall() {
         return ball;
     }
+
+    public void setBall(BallController ball){this.ball = ball;}
 
     public void setBrickCount(int brickCount) {
         this.brickCount = brickCount;
     }
 
-    /**
+    */
+/**
      * @param drawArea the area of the wall
-     * @param brickCount the amount of brick
-     * @param lineCount the amount of lines
-     * @param brickDimensionRatio the ratio of the brick shape
      * @param ballPos the position of the ball
-     */
-    public WallM(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
+     *//*
+
+    public WallM(Rectangle drawArea, Point ballPos){
 
         this.startPoint = new Point(ballPos);
 
-        levels = wc.makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio);
+       // levels = wallController.makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio);
         level = 0;
 
         ballCount = 3;
         ballLost = false;
 
-        rnd = new Random();
+        */
+/*rnd = new Random();*//*
 
-        wc.makeBall(ballPos);
 
-        int speedX,speedY;
+        //wallController.makeBall(ballPos);
+
+       */
+/* int speedX,speedY;
         speedX = 8; // changing speed of the ball , when speed = 0, speedX keeps random-ing number , <=0 then left
         speedY = -3;// negative = upwards
-        ball.setSpeed(speedX,speedY);
+        BallM.setSpeed(speedX,speedY);
 
         //player = new ((Point) ballPos.clone(),150,10, drawArea);
 
-        Player.getInstance((Point) ballPos.clone(),150,10,drawArea);
+        PlayerController.getInstance((Point) ballPos.clone(),150,10,drawArea);*//*
+
 
         area = drawArea;
 
@@ -128,9 +143,11 @@ public class WallM {
         this.collected = collected;
     }
 
-    /**
+    */
+/**
      * @return the amount of bricks
-     */
+     *//*
+
     public int getBrickCount(){
         return brickCount;
     }
@@ -139,9 +156,11 @@ public class WallM {
         this.ballCount = ballCount;
     }
 
-    /**
+    */
+/**
      * @return the amount of ball
-     */
+     *//*
+
     public int getBallCount(){
         return ballCount;
     }
@@ -170,15 +189,21 @@ public class WallM {
         return level < levels.length;
     }
 
-    public void setBallXSpeed(int s){
-        ball.setXSpeed(s);
+    public static void setBallXSpeed(int s){
+        BallController.setXSpeed(s);
     }
 
-    public void setBallYSpeed(int s){
-        ball.setYSpeed(s);
+    public static void setBallYSpeed(int s){
+        BallController.setYSpeed(s);
     }
 
-    public void resetBallCount(){
+    public static void resetBallCount(){
         ballCount = 3;
     }
+
+    public void setBricks(BrickController[] bricks){
+        this.bricks = bricks;
+    }
+
 }
+*/

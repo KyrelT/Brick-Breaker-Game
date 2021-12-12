@@ -14,8 +14,11 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ *//*
+
 package main.java;
+
+import main.Controller.BallController;
 
 import java.awt.*;
 
@@ -39,12 +42,14 @@ public class Player {
     private Player(){
     }
 
-    /**
+    */
+/**
      * @param ballPoint the position of the ball on the player's rectangle
      * @param width the width of the player
      * @param height the height of the player
      * @param container limits the movement range of the player
-     */
+     *//*
+
     private Player(Point ballPoint,int width,int height,Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;
@@ -67,23 +72,27 @@ public class Player {
         return PlayerInstance;
     }
 
-    /**
+    */
+/**
      * @param width value for the width of the rectangle
      * @param height value for the height of the rectangle
      * @return return a rectangle shape
-     */
+     *//*
+
     private Rectangle makeRectangle(int width,int height){
         Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
         return  new Rectangle(p,new Dimension(width,height));
     }
 
-    public boolean impact(Ball b){
+    public boolean impact(BallController b){
         return playerFace.contains(b.getPosition()) && playerFace.contains(b.down) ;
     }
 
-    /**
+    */
+/**
      *
-     */
+     *//*
+
     public void move(){
         double x = ballPoint.getX() + moveAmount;
         if(x < min || x > max)
@@ -92,9 +101,11 @@ public class Player {
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
     }
 
-    /**
+    */
+/**
      * allow player to move left
-     */
+     *//*
+
     public void moveLeft(){
         moveAmount = -DEF_MOVE_AMOUNT;
     }
@@ -103,33 +114,42 @@ public class Player {
         return moveAmount;
     }
 
-    /**
+    */
+/**
      * allow player to move right
-     */
+     *//*
+
     public void moveRight(){
         moveAmount = DEF_MOVE_AMOUNT;
     }
 
-    /**
+    */
+/**
      * stop the player's movement
-     */
+     *//*
+
     public void stop(){
         moveAmount = 0;
     }
 
-    /**
+    */
+/**
      * a getter to get the shape of the player
      * @return the shape for the player
-     */
+     *//*
+
     public Shape getPlayerFace(){
         return  playerFace;
     }
 
-    /**
+    */
+/**
      * @param p position of player
-     */
+     *//*
+
     public void moveTo(Point p){
         ballPoint.setLocation(p);
         playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
     }
 }
+*/

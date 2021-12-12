@@ -4,7 +4,9 @@ import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
-import static main.java.Brick.getRnd;
+import static main.Model.Brick.BrickModel.getRnd;
+
+//import static main.java.Brick.getRnd;
 
 public class Crack {
 

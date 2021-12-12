@@ -1,19 +1,20 @@
 package main.View;
 
-import main.java.Ball;
+import main.Controller.BallControl;
+import main.java.RubberBall;
 
 import java.awt.*;
 
 public class BallView {
-    private void drawBall(Ball ball, Graphics2D g2d){
+    public void drawBall(BallControl ball, Graphics2D g2d){
         Color tmp = g2d.getColor();
 
         Shape s = ball.getBallFace();
 
-        g2d.setColor(ball.getInnerColor());
+        g2d.setColor(RubberBall.DEF_INNER_COLOR);
         g2d.fill(s);
 
-        g2d.setColor(ball.getBorderColor());
+        g2d.setColor(RubberBall.DEF_BORDER_COLOR);
         g2d.draw(s);
 
         g2d.setColor(tmp);

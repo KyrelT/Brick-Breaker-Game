@@ -1,5 +1,7 @@
 package main.java;
 
+import main.Controller.BrickControl;
+
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
@@ -8,7 +10,7 @@ import java.awt.geom.Point2D;
 /**
  * a class so set up a new type of brick
  */
-public class CementBrick extends Brick {
+public class CementBrick extends BrickControl {
 
 
     private static final String NAME = "Cement Brick";

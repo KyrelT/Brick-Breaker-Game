@@ -1,11 +1,11 @@
 package main.View;
 
-import main.java.Brick;
+import main.Controller.BrickControl;
 
 import java.awt.*;
 
 public class BrickView {
-    private void drawBrick(Brick brick, Graphics2D g2d){
+    public void drawBrick(BrickControl brick, Graphics2D g2d){
         Color tmp = g2d.getColor();
         g2d.setColor(brick.getInnerColor());
         g2d.fill(brick.getBrick());

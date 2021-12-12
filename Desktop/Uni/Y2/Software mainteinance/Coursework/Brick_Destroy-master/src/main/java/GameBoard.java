@@ -1,21 +1,8 @@
-/*
- *  Brick Destroy - A simple Arcade video game
- *   Copyright (C) 2017  Filippo Ranza
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package main.java;
+
+
+import main.Controller.BrickControl;
+import main.Controller.PlayerControl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,8 +39,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     public Timer gameTimer;
 
-    private Wall wall;
-    private Brick brick;
+    Wall wall;
 
     private Random rnd;
 
@@ -84,8 +70,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private int strLen;
 
     private DebugConsole debugConsole;
-//    private Highscore highscore;
-//    private String name;
     private int option;
 
     private Point2D center;
@@ -111,14 +95,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         this.initialize();
         message = "";
         wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
-
         debugConsole = new DebugConsole(owner,wall,this);
         //initialize the first level
         wall.nextLevel();
         gameTimer = new Timer(10,e ->{ // for every 10 secs, it will check for any updates in the game
             wall.move();                     // for example if you change the value 10 into 1000 the updates on the game will be very slow
             wall.findImpacts();
-            //t++;
             message = String.format("Bricks: %d Balls %d Score: %d",wall.getBrickCount(),wall.getBallCount(),wall.getCurrentHighScore());
 //            highScoreMessage = String.format("Score: %d",wall.getCurrentHighScore());
             if(wall.isBallLost()){
@@ -149,7 +131,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 if (wall.p != null) {
                     wall.p.drop();
                     this.p = wall.p;
-                    if (Player.getInstance().getPlayerFace().contains(p.getPowerup().getLocation())) { // wall.player
+                    if (PlayerControl.getInstance().getPlayerFace().contains(p.getPowerup().getLocation())) { // wall.player
                         System.out.print("add bonus score\n");
                         wall.setCollected(true);
                     }
@@ -188,17 +170,17 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(Color.BLUE);
         g2d.drawString(message,210,225);
 
-        drawBall(wall.ball,g2d);
+        wall.ball.ballView.drawBall(wall.getBall(),g2d);
 
         if (wall.isPowerup) {
             drawPower(g2d);
         }
 
-        for(Brick b : wall.bricks)
-            if(!b.isBroken())
-                drawBrick(b,g2d);
+        for(BrickControl b : wall.getBricks()) // brick b : wall.bricks
+            if(!b.isBroken()) // !b.isBroken()
+                b.brickView.drawBrick(b,g2d);
 
-        drawPlayer(Player.getInstance(),g2d);
+        wall.player.playerView.drawPlayer(PlayerControl.getInstance(),g2d);
 
         if(showPauseMenu)
             drawMenu(g2d);
@@ -224,21 +206,19 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(tmp);
     }
 
-    /**
-     * @param brick brick object
-     * @param g2d graphics for brick
-     */
-    private void drawBrick(Brick brick,Graphics2D g2d){
-        Color tmp = g2d.getColor();
-        g2d.setColor(brick.getInnerColor());
-        g2d.fill(brick.getBrick());
+ /*   public void drawBrick(BrickControl brickController,Graphics2D g2d){
 
-        g2d.setColor(brick.getBorderColor());
-        g2d.draw(brick.getBrick());
+
+        Color tmp = g2d.getColor();
+        g2d.setColor(brickController.getInnerColor());
+        g2d.fill(brickController.getBrick());
+
+        g2d.setColor(brickController.getBorderColor());
+        g2d.draw(brickController.getBrick());
 
 
         g2d.setColor(tmp);
-    }
+    }*/
 
     private void drawPower(Graphics2D g2d){
         g2d.setColor(new Color(0,0,0));
@@ -254,7 +234,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
      * @param ball ball object
      * @param g2d graphics for ball
      */
-    private void drawBall(Ball ball,Graphics2D g2d){
+/*    private void drawBall(BallControl ball, Graphics2D g2d){
         Color tmp = g2d.getColor();
 
         Shape s = ball.getBallFace();
@@ -266,24 +246,24 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.draw(s);
 
         g2d.setColor(tmp);
-    }
+    }*/
 
     /**
      * @param p player object
      * @param g2d graphics for player
      */
-    private void drawPlayer(Player p,Graphics2D g2d){
+/*    private void drawPlayer(PlayerControl p, Graphics2D g2d){
         Color tmp = g2d.getColor();
 
         Shape s = p.getPlayerFace();
-        g2d.setColor(Player.INNER_COLOR);
+        g2d.setColor(PlayerModel.INNER_COLOR);
         g2d.fill(s);
 
-        g2d.setColor(Player.BORDER_COLOR);
+        g2d.setColor(PlayerModel.BORDER_COLOR);
         g2d.draw(s);
 
         g2d.setColor(tmp);
-    }
+    }*/
 
     /**
      * @param g2d graphics for menu
@@ -526,10 +506,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     public void keyPressed(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()){
             case KeyEvent.VK_A:
-                Player.getInstance().moveLeft();
+                PlayerControl.getInstance().moveLeft();
                 break;
             case KeyEvent.VK_D:
-                Player.getInstance().moveRight();
+                PlayerControl.getInstance().moveRight();
                 break;
             case KeyEvent.VK_ESCAPE:
                 showPauseMenu = !showPauseMenu;
@@ -555,13 +535,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 gameTimer.stop();
                 break;
             default:
-                Player.getInstance().stop();
+                PlayerControl.getInstance().stop();
         }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        Player.getInstance().stop();
+        PlayerControl.getInstance().stop();
     }
 
     @Override

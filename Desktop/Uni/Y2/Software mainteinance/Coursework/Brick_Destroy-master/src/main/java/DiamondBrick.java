@@ -1,10 +1,13 @@
 package main.java;
 
+import main.Controller.BrickControl;
+
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
-public class DiamondBrick extends Brick{
+
+public class DiamondBrick extends BrickControl {
     private static final String NAME = "Diamond Brick";
     private static final Color DEF_INNER = new Color(100, 220, 220);
     private static final Color DEF_BORDER = new Color(60, 200, 191);

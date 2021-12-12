@@ -1,7 +1,6 @@
 package main.java;
 
 import main.java.GameBoard;
-import main.java.Wall;
 
 import java.io.*;
 import java.util.ArrayList;

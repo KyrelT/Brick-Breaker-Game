@@ -17,6 +17,8 @@
  */
 package main.java;
 
+import main.Controller.BrickControl;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
@@ -25,7 +27,7 @@ import java.util.Random;
 /**
  * a class so set up a new type of brick
  */
-public class SteelBrick extends Brick {
+public class SteelBrick extends BrickControl {
 
     private static final String NAME = "Steel Brick";
     private static final Color DEF_INNER = new Color(170, 90, 1);
@@ -72,9 +74,6 @@ public class SteelBrick extends Brick {
         return  super.isBroken();
     }
 
-    public void checkBall(){
-        //if
-    }
 
     /**
      * impact of the

@@ -17,16 +17,18 @@
  */
 package main.java;
 
+import main.Controller.BallControl;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
-public class RubberBall extends Ball {
+public class RubberBall extends BallControl {
 
 
-    private static final int DEF_RADIUS = 10;
-    private static final Color DEF_INNER_COLOR = new Color(255, 219, 88);
-    private static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
+    public static final int DEF_RADIUS = 10;
+    public static final Color DEF_INNER_COLOR = new Color(255, 219, 88);
+    public static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
 
 
     /**
@@ -42,7 +44,6 @@ public class RubberBall extends Ball {
      * @param radius the radius of the ball
      * @return a frame of a rectangle
      */
-    @Override
     protected Shape makeBall(Point2D center, int radius) {
 
         double x = center.getX() - (radius / 2);

@@ -1,10 +1,12 @@
 package main.java;
 
+import main.Controller.BrickControl;
+
 import java.awt.*;
 
 public class BrickFactory {
 
-    public Brick getBrickType(String name, Point point, Dimension size){
+    public BrickControl getBrickType(String name, Point point, Dimension size){
         if (name==null)
             return null;
         if (name.equalsIgnoreCase("CLAY"))

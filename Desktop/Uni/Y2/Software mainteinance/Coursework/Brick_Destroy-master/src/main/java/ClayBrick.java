@@ -1,13 +1,17 @@
 package main.java;
 
+
+import main.Controller.BrickControl;
+
 import java.awt.*;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 
 
 /**
  * a class so set up a new type of brick
  */
-public class ClayBrick extends Brick {
+public class ClayBrick extends BrickControl {
 
     private static final String NAME = "Clay Brick";
     private static final Color DEF_INNER = new Color(178, 34, 34).darker();
@@ -31,7 +35,7 @@ public class ClayBrick extends Brick {
         protected Shape makeBrickFace(Point pos, Dimension size) {
             return new Rectangle(pos, size);
         }
-
+        
     /**
      * @return get shape of brick
      */

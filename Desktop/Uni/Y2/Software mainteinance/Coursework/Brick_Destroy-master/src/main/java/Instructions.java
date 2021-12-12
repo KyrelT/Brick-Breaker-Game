@@ -1,5 +1,6 @@
 package main.java;
 
+
 import org.w3c.dom.css.Rect;
 
 import javax.swing.*;
@@ -42,7 +43,8 @@ public class Instructions extends JComponent implements KeyListener, MouseListen
 
     public int xcoor=150;
 
-    private Wall wall;
+    //private WallM wall;
+    Wall wall;
     private Rectangle player;
 
     private int strLen;
@@ -57,7 +59,7 @@ public class Instructions extends JComponent implements KeyListener, MouseListen
 
         this.owner = owner;
 
-        wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
+        //WallController wallController = new WallController(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
         this.initialize();
         Timer = new Timer(10,e-> {
             // for every 10 secs, it will check for any updates in the game
