@@ -5,6 +5,10 @@ import main.Controller.BrickControl;
 import java.awt.*;
 
 public class BrickView {
+    /**
+     * @param brick brick object
+     * @param g2d graphics for brick
+     */
     public void drawBrick(BrickControl brick, Graphics2D g2d){
         Color tmp = g2d.getColor();
         g2d.setColor(brick.getInnerColor());

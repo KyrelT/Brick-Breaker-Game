@@ -61,6 +61,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setVisible(true);
     }
 
+    /**
+     * show game board screen
+     */
     public void enableGameBoard(){
         this.dispose();
         this.remove(homeMenu);
@@ -73,6 +76,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     }
 
+    /**
+     * show instruction screen
+     */
     public void enableInstructions(){
         this.dispose();
         this.remove(homeMenu);

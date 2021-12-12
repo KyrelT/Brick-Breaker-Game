@@ -5,6 +5,10 @@ public class Scores implements Comparable{
     private int highscore;
 
 
+    /**
+     * @param name user's name
+     * @param highscore user's highscore
+     */
     public Scores( String name , int highscore)
     {
         this.name = name;
@@ -12,16 +16,25 @@ public class Scores implements Comparable{
 
     }
 
+    /**
+     * @return get the final high score
+     */
     public int getHighscore() {
         return highscore;
     }
 
+    /**
+     * @return a sorted list
+     */
     public int compareTo(Object b) {
         int comparescore = ((Scores)b).getHighscore();
         return -(this.highscore -comparescore) ;
     }
 
 
+    /**
+     * @return get user's name
+     */
     public String getName() {
         return name;
     }

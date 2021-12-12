@@ -49,17 +49,13 @@ public class Instructions extends JComponent implements KeyListener, MouseListen
 
     private int strLen;
 
+    /**
+     * @param owner owner
+     */
     public Instructions(GameFrame owner){
-
-//        this.setFocusable(true);
-//        this.requestFocusInWindow();
-//
-//        this.addMouseListener(this);
-//        this.addMouseMotionListener(this);
 
         this.owner = owner;
 
-        //WallController wallController = new WallController(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
         this.initialize();
         Timer = new Timer(10,e-> {
             // for every 10 secs, it will check for any updates in the game
@@ -86,22 +82,39 @@ public class Instructions extends JComponent implements KeyListener, MouseListen
 
     }
 
+    /**
+     * @param g2d graphics for draw player
+     */
     private void drawPlayer(Graphics2D g2d){
         Rectangle player = makeRectangle(xcoor,400,150,25);
         this.player = player;
         g2d.setColor(new Color(0,0,0));
         g2d.fill(player);
     }
+
+    /**
+     * @param x x position of the rectangle
+     * @param y y position of the rectangle
+     * @param width width of the rectangle
+     * @param height height of the rectangle
+     * @return a rectangle shape
+     */
     private Rectangle makeRectangle(int x,int y,int width,int height){
         Point p = new Point((int)(x),y);
         return  new Rectangle(p,new Dimension(width,height));
     }
 
+    /**
+     * @param g graphics for instructions
+     */
     public void paint(Graphics g){
         drawInstructions((Graphics2D)g);
     }
 
 
+    /**
+     * @param g2d graphics for instructions
+     */
     public void drawInstructions(Graphics2D g2d){
         drawContainer(g2d);
         drawText(g2d);
@@ -110,12 +123,18 @@ public class Instructions extends JComponent implements KeyListener, MouseListen
     }
 
 
+    /**
+     * @param g2d graphics for container
+     */
     private void drawContainer(Graphics2D g2d){
         g2d.setColor(BG_COLOR); // background color
         Rectangle InstructionFace = new Rectangle(new Point(0, 0), new Dimension(DEF_WIDTH,DEF_HEIGHT));
         g2d.fill(InstructionFace);
     }
 
+    /**
+     * @param g2d graphics for text
+     */
     private void drawText(Graphics2D g2d){
 
         g2d.setColor(TEXT_COLOR);
@@ -160,6 +179,9 @@ public class Instructions extends JComponent implements KeyListener, MouseListen
 
     }
 
+    /**
+     * @param g2d graphics for button
+     */
     private void drawButton(Graphics2D g2d){
         Font tmpFont = g2d.getFont();
         Color tmpColor = g2d.getColor();

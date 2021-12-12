@@ -6,6 +6,10 @@ import main.java.RubberBall;
 import java.awt.*;
 
 public class BallView {
+    /**
+     * @param ball ball object
+     * @param g2d graphics for ball
+     */
     public void drawBall(BallControl ball, Graphics2D g2d){
         Color tmp = g2d.getColor();
 

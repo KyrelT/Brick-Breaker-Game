@@ -16,6 +16,14 @@ abstract public class BrickControl {
     public Shape brickFace ;
 
 
+    /**
+     * @param name name of the brick type
+     * @param pos position of the brick
+     * @param size size of the brick
+     * @param border border color of the brick
+     * @param inner inner color of the brick
+     * @param strength strength of the brick
+     */
     public BrickControl(String name, Point pos, Dimension size, Color border, Color inner, int strength)
     {
         brickView = new BrickView();
@@ -24,26 +32,36 @@ abstract public class BrickControl {
 
     }
 
+    /**
+     * @param pos position of the brick
+     * @param size size of the brick
+     * @return Brick face
+     */
     protected abstract Shape makeBrickFace(Point pos,Dimension size);
 
+    /**
+     * @return get brick
+     */
     public abstract Shape getBrick();
 
-/*    public void setFullStrength(int fullStrength) {
-        brickModel.setStrength(fullStrength);
-    }*/
-
-
+    /**
+     * @param strength the strength/ toughness of the brick
+     */
     public void setStrength(int strength) {
         brickModel.setStrength(strength);
     }
 
+    /**
+     * impact of the brick
+     */
     public void impact(){
-
-        System.out.println("print yi dian dong xi******************");
         setStrength(getStrength()-1);
         setBroken(getStrength()== 0);// broken = true (when broken)
     }
 
+    /**
+     * brick's strength will reset if this method is called
+     */
     public void repair() {
 
         setBroken(false);
@@ -51,16 +69,26 @@ abstract public class BrickControl {
     }
 
 
+    /**
+     * @param broken return a boolean if the brick is broken
+     */
     public void setBroken(boolean broken)
     {
         brickModel.setBroken(broken);
     }
 
+    /**
+     * @return a strength value which is originally initialize for the brick type
+     */
     public int getFullStrength()
     {
         return brickModel.getFullStrength();
     }
 
+    /**
+     * @param b ball object
+     * @return which direction of the brick is impacted
+     */
     public final int findImpact(BallControl b){
         if(isBroken())
             return 0;
@@ -81,25 +109,42 @@ abstract public class BrickControl {
 
     }
 
+    /**
+     * @return a boolean from brick model class if the brick is broken or not
+     */
     public final boolean isBroken()
     {
         return brickModel.isBroken();
     }
 
 
+    /**
+     * @return an int value of strength from the brick
+     */
     public int getStrength(){
         return brickModel.getStrength();
     }
 
 
+    /**
+     * @return get the border color from brick model class
+     */
     public Color getBorderColor(){
         return brickModel.getBorderColor();
     }
 
+    /**
+     * @return get the inner color from brick model class
+     */
     public Color getInnerColor(){
         return brickModel.getInnerColor();
     }
 
+    /**
+     * @param point position of the brick
+     * @param dir direction of which the brick is impacted
+     * @return a boolean value if there is any impact
+     */
     public  boolean setImpact(Point2D point , int dir){
         System.out.println("setImpact");
         if(isBroken()){

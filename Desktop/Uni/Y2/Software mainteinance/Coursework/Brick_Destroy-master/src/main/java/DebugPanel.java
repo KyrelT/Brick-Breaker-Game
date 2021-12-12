@@ -40,6 +40,9 @@ public class DebugPanel extends JPanel {
 
     Wall wall;
 
+    /**
+     * @param wall wall class
+     */
     public DebugPanel(Wall wall){
 
         this.wall = wall;
@@ -65,6 +68,10 @@ public class DebugPanel extends JPanel {
         this.setLayout(new GridLayout(2,2));
     }
 
+    /**
+     * @param title the title of the button
+     * @return a button
+     */
     private JButton makeButton(String title, ActionListener e){
         JButton out = new JButton(title);
         out.addActionListener(e);

@@ -71,8 +71,6 @@ public class Wall {
 
         rnd = new Random();
 
-//        makeBall(ballPos);
-
         int speedX,speedY;
             speedX = 8; // changing speed of the ball , when speed = 0, speedX keeps random-ing number , <=0 then left
             speedY = -3;// negative = upwards
@@ -224,10 +222,16 @@ public class Wall {
         ball.move();
     }
 
+    /**
+     * @return get the current level's highscore
+     */
     public int getCurrentHighScore() {
         return CurrentHighScore;
     }
 
+    /**
+     * @param collected boolean value if the power up is collected
+     */
     public void setCollected(boolean collected) {
         this.collected = collected;
     }
@@ -320,6 +324,9 @@ public class Wall {
         return ballCount;
     }
 
+    /**
+     * @return a boolean to check if the ball is lost
+     */
     public boolean isBallLost(){
         return ballLost;
     }
@@ -340,10 +347,16 @@ public class Wall {
         ballLost = false;
     }
 
+    /**
+     * @return get the level's final highscore
+     */
     public int getFinalHighScore() {
         return FinalHighScore;
     }
 
+    /**
+     * reset the bricks , ball , ballcount, highscore
+     */
     public void wallReset(){
         for(BrickControl b : bricks)
             b.repair();
@@ -357,14 +370,23 @@ public class Wall {
         return ball;
     }
 
+    /**
+     * @return a boolean value to check if there's any ball left
+     */
     public boolean ballEnd(){
         return ballCount == 0;
     }
 
+    /**
+     * @return a boolean value to check if there's any brick left
+     */
     public boolean isDone(){
         return brickCount == 0;
     }
 
+    /**
+     * get to the next level after all the bricks is finished
+     */
     public void nextLevel(){
         bricks = levels[level++];
         this.brickCount = bricks.length;
@@ -374,14 +396,23 @@ public class Wall {
         return level < levels.length;
     }
 
+    /**
+     * @param s int value for ball x speed
+     */
     public void setBallXSpeed(int s){
         ball.setXSpeed(s);
     }
 
+    /**
+     * @param s int value for ball y speed
+     */
     public void setBallYSpeed(int s){
         ball.setYSpeed(s);
     }
 
+    /**
+     * reset the ball count back to 3
+     */
     public void resetBallCount(){
         ballCount = 3;
     }

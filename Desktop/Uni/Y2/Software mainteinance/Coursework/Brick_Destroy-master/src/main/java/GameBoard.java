@@ -146,6 +146,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     }
 
+    /**
+     * @return name
+     */
     public static String getname() {
         return name;
     }
@@ -161,6 +164,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     }
 
 
+    /**
+     * @param g graphics
+     */
     public void paint(Graphics g){
 
         Graphics2D g2d = (Graphics2D) g;
@@ -199,6 +205,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         Toolkit.getDefaultToolkit().sync();
     }
 
+    /**
+     * @param g2d graphics
+     */
     private void clear(Graphics2D g2d){
         Color tmp = g2d.getColor();
         g2d.setColor(BG_COLOR);
@@ -220,6 +229,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(tmp);
     }*/
 
+    /**
+     * @param g2d graphics for drawPower
+     */
     private void drawPower(Graphics2D g2d){
         g2d.setColor(new Color(0,0,0));
         g2d.fill(p.getPowerup());
@@ -272,6 +284,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         obscureGameBoard(g2d);
         drawPauseMenu(g2d);
     }
+
+    /**
+     * @param g2d graphics for instructions
+     */
     private void drawInstructions(Graphics2D g2d){
         obscureGameBoard(g2d);
         g2d.setColor(new Color(180,240,180)); // background color
@@ -428,6 +444,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(tmpColor);
     }
 
+    /**
+     * @param g2d graphics for leaderboard
+     * @throws IOException
+     */
     public void drawLeaderboard(Graphics2D g2d) throws IOException {
         obscureGameBoard(g2d);
         g2d.setColor(new Color(180,240,180)); // background color

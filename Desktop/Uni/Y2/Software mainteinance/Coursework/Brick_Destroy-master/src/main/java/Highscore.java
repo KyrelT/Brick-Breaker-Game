@@ -33,6 +33,9 @@ public class Highscore {
     }
 */
 
+    /**
+     * @throws IOException
+     */
     public static void write() throws IOException{
 
             showhighscore = wall.getFinalHighScore();
@@ -65,6 +68,9 @@ public class Highscore {
     }
 
 
+    /**
+     * @throws IOException
+     */
     public static void read() throws IOException {
         File reader = new File("src/main/resources/Highscore.txt");
         BufferedReader textread;

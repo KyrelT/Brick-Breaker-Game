@@ -6,6 +6,10 @@ import main.Model.Player.PlayerModel;
 import java.awt.*;
 
 public class PlayerView {
+    /**
+     * @param p player object
+     * @param g2d graphics for player
+     */
     public void drawPlayer(PlayerControl p, Graphics2D g2d){
         Color tmp = g2d.getColor();
 

@@ -19,6 +19,12 @@ public class BallModel {
     private int speedY;
 
 
+    /**
+     * @param center center position for the ball
+     * @param radius radius of the ball
+     * @param inner inner color of the ball
+     * @param border border color of the ball
+     */
     public BallModel(Point2D center, int radius,Color inner, Color border)
     {
         this.center = center;
@@ -41,31 +47,53 @@ public class BallModel {
     }
 
 
+    /**
+     * @return up point of the ball
+     */
     public Point2D getUp() {
         return up;
     }
 
+    /**
+     * @return down point of the ball
+     */
     public Point2D getDown() {
         return down;
     }
 
+    /**
+     * @return left point of the ball
+     */
     public Point2D getLeft() {
         return left;
     }
 
+    /**
+     * @return right point of the ball
+     */
     public Point2D getRight() {
         return right;
     }
 
+    /**
+     * @param x int variable for x speed
+     * @param y int variable for y speed
+     */
     public void setSpeed(int x,int y){
         speedX = x;
         speedY = y;
     }
 
+    /**
+     * @param s int variable for x speed
+     */
     public void setXSpeed(int s){
         speedX = s;
     }
 
+    /**
+     * @param s int variable for y speed
+     */
     public void setYSpeed(int s){
         speedY = s;
     }
@@ -78,6 +106,9 @@ public class BallModel {
         return inner;
     }
 
+    /**
+     * @return center point position
+     */
     public Point2D getPosition(){
         return center;
     }

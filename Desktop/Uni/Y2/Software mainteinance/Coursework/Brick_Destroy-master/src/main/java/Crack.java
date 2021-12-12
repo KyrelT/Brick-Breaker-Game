@@ -49,6 +49,9 @@ public class Crack {
             return crack;
         }
 
+    /**
+     * reset/erase the crack visuals
+     */
         public void reset(){
             crack.reset();
         }
@@ -98,6 +101,10 @@ public class Crack {
             }
         }
 
+    /**
+     * @param start start point of a line in the brick
+     * @param end end point of a line in the brick
+     */
         protected void makeCrack(Point start, Point end){
 
             GeneralPath path = new GeneralPath();
@@ -129,11 +136,21 @@ public class Crack {
             crack.append(path,true);
         }
 
+    /**
+     * @param bound random value
+     * @return integer of random value
+     */
         private int randomInBounds(int bound){
             int n = (bound * 2) + 1;
             return getRnd().nextInt(n) - bound;
         }
 
+    /**
+     * @param i
+     * @param steps
+     * @param divisions
+     * @return
+     */
         private boolean inMiddle(int i,int steps,int divisions){
             int low = (steps / divisions);
             int up = low * (divisions - 1);
@@ -141,6 +158,11 @@ public class Crack {
             return  (i > low) && (i < up);
         }
 
+    /**
+     * @param bound random value
+     * @param probability a chance
+     * @return
+     */
         private int jumps(int bound,double probability){
 
             if(getRnd().nextDouble() > probability)
@@ -149,6 +171,12 @@ public class Crack {
 
         }
 
+    /**
+     * @param from start point
+     * @param to end point
+     * @param direction direction to a point
+     * @return position
+     */
         private Point makeRandomPoint(Point from,Point to, int direction){
 
             Point out = new Point();

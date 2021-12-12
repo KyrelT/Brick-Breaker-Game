@@ -15,6 +15,12 @@ public class PlayerControl {
 
     private PlayerControl(){}
 
+    /**
+     * @param ballPoint position of the ball
+     * @param width width of the player
+     * @param height height of the player
+     * @param container the shape of the player
+     */
     private PlayerControl(Point ballPoint,int width,int height,Rectangle container)
     {
         playerView = new PlayerView();
@@ -61,10 +67,16 @@ public class PlayerControl {
 
     }
 
+    /**
+     * the player rectangle moves right by 5 units
+     */
     public void moveRight(){
         playerModel.setMoveAmount(PlayerModel.DEF_MOVE_AMOUNT) ;
     }
 
+    /**
+     * the player rectangle does not move/ stays in place
+     */
     public void stop(){
         playerModel.setMoveAmount(0) ;
     }
@@ -87,16 +99,25 @@ public class PlayerControl {
         return playerFace.contains(b.getPosition()) && playerFace.contains(b.getDown()) ;
     }
 
+    /**
+     * @return get the inner color of the player
+     */
     public Color getInnerColor()
     {
         return PlayerModel.INNER_COLOR;
     }
 
+    /**
+     * @return get the border color of the player
+     */
     public Color getBorderColor()
     {
         return PlayerModel.BORDER_COLOR;
     }
 
+    /**
+     * @return get player face
+     */
     public Rectangle getPlayerFace()
     {
         return playerModel.getPlayerFace();

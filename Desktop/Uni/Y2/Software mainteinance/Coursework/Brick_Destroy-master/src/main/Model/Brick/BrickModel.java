@@ -135,10 +135,16 @@ public class BrickModel {
 
     }
 
+    /**
+     * @param strength int variable for strength
+     */
     public void setStrength(int strength) {
         this.strength = strength;
     }
 
+    /**
+     * @param broken boolean value to check if the brick is broken
+     */
     public void setBroken(boolean broken) {
         this.broken = broken;
     }
