@@ -35,8 +35,6 @@ public class SteelBrick extends BrickControl {
     private static final int STEEL_STRENGTH = 1;
     private static final double STEEL_PROBABILITY = 0.4;
 
-    private boolean isSpecialBall;
-
     private Random rnd;
     private Shape brickFace;
 
@@ -80,9 +78,6 @@ public class SteelBrick extends BrickControl {
      */
     public void impact(){
         if(rnd.nextDouble() < STEEL_PROBABILITY){
-            super.impact();
-        }
-        else if (isSpecialBall){
             super.impact();
         }
     }

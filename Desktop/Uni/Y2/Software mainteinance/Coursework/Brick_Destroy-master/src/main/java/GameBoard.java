@@ -35,7 +35,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private static final Color BG_COLOR = Color.WHITE;
     private static String name;
-    public Point2D down;
+//    public Point2D down;
 
     public Timer gameTimer;
 
@@ -44,7 +44,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private Random rnd;
 
     private String message;
-    private String message2;
     private String highScoreMessage;
 
     private boolean showPauseMenu;
@@ -96,7 +95,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         message = "";
         wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
         debugConsole = new DebugConsole(owner,wall,this);
-        //initialize the first level
         wall.nextLevel();
         gameTimer = new Timer(10,e ->{ // for every 10 secs, it will check for any updates in the game
             wall.move();                     // for example if you change the value 10 into 1000 the updates on the game will be very slow
@@ -117,7 +115,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             else if(wall.isDone()){
                 if(wall.hasLevel()){
                     message = "Go to Next Level";
-                    message2 = "Perfect Level!!";
                     gameTimer.stop();
                     wall.ballReset();
                     wall.wallReset();
@@ -131,7 +128,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 if (wall.p != null) {
                     wall.p.drop();
                     this.p = wall.p;
-                    if (PlayerControl.getInstance().getPlayerFace().contains(p.getPowerup().getLocation())) { // wall.player
+                    if (PlayerControl.getInstance().getPlayerFace().contains(p.getPowerup().getLocation())) {
                         System.out.print("add bonus score\n");
                         wall.setCollected(true);
                     }
@@ -182,8 +179,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             drawPower(g2d);
         }
 
-        for(BrickControl b : wall.getBricks()) // brick b : wall.bricks
-            if(!b.isBroken()) // !b.isBroken()
+        for(BrickControl b : wall.getBricks())
+            if(!b.isBroken())
                 b.brickView.drawBrick(b,g2d);
 
         wall.player.playerView.drawPlayer(PlayerControl.getInstance(),g2d);
@@ -215,20 +212,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(tmp);
     }
 
- /*   public void drawBrick(BrickControl brickController,Graphics2D g2d){
-
-
-        Color tmp = g2d.getColor();
-        g2d.setColor(brickController.getInnerColor());
-        g2d.fill(brickController.getBrick());
-
-        g2d.setColor(brickController.getBorderColor());
-        g2d.draw(brickController.getBrick());
-
-
-        g2d.setColor(tmp);
-    }*/
-
     /**
      * @param g2d graphics for drawPower
      */
@@ -236,46 +219,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(new Color(0,0,0));
         g2d.fill(p.getPowerup());
     }
-
-    private Rectangle makeRectangle(int x,int y,int width,int height){
-        Point p = new Point((int)(x),y);
-        return  new Rectangle(p,new Dimension(width,height));
-    }
-
-    /**
-     * @param ball ball object
-     * @param g2d graphics for ball
-     */
-/*    private void drawBall(BallControl ball, Graphics2D g2d){
-        Color tmp = g2d.getColor();
-
-        Shape s = ball.getBallFace();
-
-        g2d.setColor(ball.getInnerColor());
-        g2d.fill(s);
-
-        g2d.setColor(ball.getBorderColor());
-        g2d.draw(s);
-
-        g2d.setColor(tmp);
-    }*/
-
-    /**
-     * @param p player object
-     * @param g2d graphics for player
-     */
-/*    private void drawPlayer(PlayerControl p, Graphics2D g2d){
-        Color tmp = g2d.getColor();
-
-        Shape s = p.getPlayerFace();
-        g2d.setColor(PlayerModel.INNER_COLOR);
-        g2d.fill(s);
-
-        g2d.setColor(PlayerModel.BORDER_COLOR);
-        g2d.draw(s);
-
-        g2d.setColor(tmp);
-    }*/
 
     /**
      * @param g2d graphics for menu
@@ -297,12 +240,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(TEXT_COLOR);
 
         FontRenderContext frc = g2d.getFontRenderContext();
-
-        Rectangle2D TitleRect = TitleFont.getStringBounds(INSTRUCTIONS,frc);
-        Rectangle2D ARect = AFont.getStringBounds("A To Move Left",frc);
-        Rectangle2D DRect = DFont.getStringBounds("D To Move Right",frc);
-        Rectangle2D SpaceRect = SpaceFont.getStringBounds("Spacebar To Pause the Game",frc);
-        Rectangle2D Back = BackFont.getStringBounds("Press Esc back to Menu",frc);
 
         int sX = 200;
         int sY = 60;
@@ -673,7 +610,4 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         return center;
     }
 
-    public boolean ispowerSpawn() {
-        return ispowerSpawn;
-    }
 }

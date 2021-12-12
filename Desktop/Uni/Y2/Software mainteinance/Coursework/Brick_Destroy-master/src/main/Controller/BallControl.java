@@ -17,12 +17,6 @@ abstract public class BallControl {
 
     private Point2D center;
 
-    private Color border;
-    private Color inner;
-
-    private int speedX;
-    private int speedY;
-
     /**
      * @param center the center position of the ball
      * @param radius radius of the ball
@@ -154,14 +148,6 @@ abstract public class BallControl {
     public void reverseX(){
         setXSpeed(-getSpeedX());
     }
-
-/*    public Color getInnerColor(){
-        return inner;
-    }
-
-    public Color getBorderColor(){
-        return border;
-    }*/
 
     /**
      * @return get the Right point of the ball

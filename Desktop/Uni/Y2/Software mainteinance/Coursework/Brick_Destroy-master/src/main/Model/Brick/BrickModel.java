@@ -1,15 +1,9 @@
 package main.Model.Brick;
 
-import main.java.Wall;
-
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.Random;
 
 public class BrickModel {
-    public static final int MIN_CRACK = 1;
-    public static final int DEF_CRACK_DEPTH = 1;
-    public static final int DEF_STEPS = 35;
 
 
     public static final int UP_IMPACT = 100;
@@ -20,7 +14,6 @@ public class BrickModel {
     private static Random rnd;
 
     private String name;
-    Shape brickFace;
 
     private Color border;
     private Color inner;
@@ -29,7 +22,6 @@ public class BrickModel {
     private int strength;
 
     public boolean broken;
-    private Wall wall;
 
 
 /**
@@ -48,7 +40,6 @@ public class BrickModel {
         this.border = border;
         this.inner = inner;
         this.fullStrength = this.strength = strength;
-//        this.wall = wall;
     }
 
 
@@ -60,24 +51,6 @@ public class BrickModel {
         return rnd;
     }
 
-
-/**
- * @param point position of the brick
- * @param dir direction of the impact
- * @return true if it's not broken, false if it's broken
- */
-
-    public  boolean setImpact(Point2D point , int dir){
-        if(broken)
-            return false;
-        impact();
-        return  broken;
-    }
-
-
-    public Shape getBrickFace(){
-        return brickFace;
-    }
 
 
 /**
@@ -112,16 +85,6 @@ public class BrickModel {
 
     public int getFullStrength() {
         return fullStrength;
-    }
-
-
-/**
- * reset the strength of bricks
- */
-
-    public void repair() {
-        broken = false;
-        strength = fullStrength;
     }
 
 

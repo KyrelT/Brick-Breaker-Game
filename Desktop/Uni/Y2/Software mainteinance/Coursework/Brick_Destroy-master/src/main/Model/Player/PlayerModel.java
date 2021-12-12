@@ -7,7 +7,7 @@ public class PlayerModel {
         public static final Color BORDER_COLOR = Color.GREEN.darker().darker();
         public static final Color INNER_COLOR = Color.GREEN;
 
-        public static final int DEF_MOVE_AMOUNT = 5;
+        public static final int DEF_MOVE_AMOUNT = 6;
 
         private Rectangle playerFace;
 
@@ -15,7 +15,6 @@ public class PlayerModel {
         private int moveAmount;
         private int min;
         private int max;
-        private static PlayerModel playerInstance  ;
 
 
     /**

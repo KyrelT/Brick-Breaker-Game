@@ -2,11 +2,9 @@ package main.java;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.awt.geom.RectangularShape;
 
 public class Powerup {
 
-    private static boolean isPowerCollected;
     private double x;
     private double y;
     private Rectangle powerup;

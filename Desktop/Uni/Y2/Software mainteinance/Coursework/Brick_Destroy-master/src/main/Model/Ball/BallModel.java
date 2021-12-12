@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 
 public class BallModel {
-    private Shape ballFace;
+
     private Point2D center;
 
     Point2D up;
@@ -12,8 +12,7 @@ public class BallModel {
     Point2D left;
     Point2D right;
 
-    private Color border;
-    private Color inner;
+
 
     private int speedX;
     private int speedY;
@@ -40,8 +39,6 @@ public class BallModel {
         left.setLocation(center.getX()-(radius /2),center.getY());
         right.setLocation(center.getX()+(radius /2),center.getY());
 
-        this.border = border;
-        this.inner  = inner;
         speedX = 0;
         speedY = 0;
     }
@@ -98,31 +95,12 @@ public class BallModel {
         speedY = s;
     }
 
-    public Color getBorderColor(){
-        return border;
-    }
-
-    public Color getInnerColor(){
-        return inner;
-    }
 
     /**
      * @return center point position
      */
     public Point2D getPosition(){
         return center;
-    }
-
-    public Shape getBallFace(){
-        return ballFace;
-    }
-
-    private void setPoints(double width,double height){
-        up.setLocation(center.getX(),center.getY()-(height / 2));
-        down.setLocation(center.getX(),center.getY()+(height / 2));
-
-        left.setLocation(center.getX()-(width / 2),center.getY());
-        right.setLocation(center.getX()+(width / 2),center.getY());
     }
 
 

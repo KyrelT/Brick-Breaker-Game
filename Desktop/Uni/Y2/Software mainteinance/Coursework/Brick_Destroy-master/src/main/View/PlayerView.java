@@ -1,7 +1,6 @@
 package main.View;
 
 import main.Controller.PlayerControl;
-import main.Model.Player.PlayerModel;
 
 import java.awt.*;
 

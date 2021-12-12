@@ -1,16 +1,10 @@
 package main.java;
 
 
-import org.w3c.dom.css.Rect;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-
-import static com.sun.java.swing.plaf.motif.MotifBorders.FrameBorder.BORDER_SIZE;
 
 public class Instructions extends JComponent implements KeyListener, MouseListener, MouseMotionListener {
 
@@ -29,7 +23,6 @@ public class Instructions extends JComponent implements KeyListener, MouseListen
     private static final int DEF_HEIGHT = 450;
     private final GameFrame owner;
 
-    private Rectangle InstructionFace;
     private Rectangle startButton;
 
     private Timer Timer;
@@ -43,8 +36,6 @@ public class Instructions extends JComponent implements KeyListener, MouseListen
 
     public int xcoor=150;
 
-    //private WallM wall;
-    Wall wall;
     private Rectangle player;
 
     private int strLen;
@@ -86,7 +77,7 @@ public class Instructions extends JComponent implements KeyListener, MouseListen
      * @param g2d graphics for draw player
      */
     private void drawPlayer(Graphics2D g2d){
-        Rectangle player = makeRectangle(xcoor,400,150,25);
+        Rectangle player = makeRectangle(xcoor,400,230,15);
         this.player = player;
         g2d.setColor(new Color(0,0,0));
         g2d.fill(player);
@@ -138,15 +129,6 @@ public class Instructions extends JComponent implements KeyListener, MouseListen
     private void drawText(Graphics2D g2d){
 
         g2d.setColor(TEXT_COLOR);
-
-        FontRenderContext frc = g2d.getFontRenderContext();
-
-        Rectangle2D TitleRect = TitleFont.getStringBounds(INSTRUCTIONS,frc);
-        Rectangle2D ARect = AFont.getStringBounds("A To Move Left",frc);
-        Rectangle2D DRect = DFont.getStringBounds("D To Move Right",frc);
-        Rectangle2D SpaceRect = SpaceFont.getStringBounds("Spacebar To Pause the Game",frc);
-
-
 
         int sX = 200;
         int sY = 60;

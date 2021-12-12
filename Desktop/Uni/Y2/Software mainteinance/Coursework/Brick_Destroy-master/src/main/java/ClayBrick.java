@@ -5,7 +5,6 @@ import main.Controller.BrickControl;
 
 import java.awt.*;
 import java.awt.Point;
-import java.awt.geom.Point2D;
 
 
 /**
@@ -35,7 +34,7 @@ public class ClayBrick extends BrickControl {
         protected Shape makeBrickFace(Point pos, Dimension size) {
             return new Rectangle(pos, size);
         }
-        
+
     /**
      * @return get shape of brick
      */

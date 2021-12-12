@@ -76,7 +76,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         menuFace = new Rectangle(new Point(0,0),area);
         this.setPreferredSize(area);
 
-        Dimension btnDim = new Dimension(area.width / 3, area.height / 12); // buttons for start and exit
+        Dimension btnDim = new Dimension(area.width / 3, area.height / 12);
         startButton = new Rectangle(btnDim);
         menuButton = new Rectangle(btnDim);
         instructionButton = new Rectangle(btnDim);
@@ -107,11 +107,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         drawContainer(g2d);
 
-        /*
-        all the following method calls need a relative
-        painting directly into the HomeMenu rectangle,
-        so the translation is made here so the other methods do not do that.
-         */
         Color prevColor = g2d.getColor();
         Font prevFont = g2d.getFont();
 
@@ -120,10 +115,8 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         g2d.translate(x,y);
 
-        //methods calls
         drawText(g2d);
         drawButton(g2d);
-        //end of methods calls
 
         g2d.translate(-x,-y);
         g2d.setFont(prevFont);

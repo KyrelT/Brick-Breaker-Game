@@ -44,9 +44,6 @@ public class Wall {
     public boolean isPowerup;
     public Powerup p;
 
-    public void setBrickCount(int brickCount) {
-        this.brickCount = brickCount;
-    }
 
 /**
      * @param drawArea the area of the wall
@@ -187,7 +184,7 @@ public class Wall {
 /**
      * @param ballPos coordinates of the position of the ball*/
 
-    public void makeBall(Point2D ballPos){ // where i can make the ball change
+    public void makeBall(Point2D ballPos){
         ballfactory = new BallFactory();
         ball = ballfactory.getBallType("RUBBER",ballPos);
     }
@@ -243,18 +240,15 @@ public class Wall {
     public void findImpacts(){
         if(player.getInstance().impact(ball)){
             ball.reverseY();
-            System.out.println("hitplayer");
         }
         else if(impactWall()){
             isPowerup = true;
             this.p = new Powerup(ball.getPosition());
             brickCount--;
             CurrentHighScore++;
-            System.out.println("hitbrick");
         }
         else if(impactBorder()) {
             ball.reverseX();
-            System.out.println("hitborder");
         }
         else if(ball.getPosition().getY() < area.getY()){
             ball.reverseY();
@@ -279,20 +273,16 @@ public class Wall {
                 //Vertical Impact
                 case BrickModel.UP_IMPACT:
                     ball.reverseY();
-                    System.out.println("print yi dian dong xi");
                     return b.setImpact(ball.getDown(), Crack.UP);
                 case BrickModel.DOWN_IMPACT:
-                    System.out.println("print yi dian dong xi");
                     ball.reverseY();
                     return b.setImpact(ball.getUp(),Crack.DOWN);
 
                 //Horizontal Impact
                 case BrickModel.LEFT_IMPACT:
-                    System.out.println("print yi dian dong xi");
                     ball.reverseX();
                     return b.setImpact(ball.getRight(),Crack.RIGHT);
                 case BrickModel.RIGHT_IMPACT:
-                    System.out.println("print yi dian dong xi");
                     ball.reverseX();
                     return b.setImpact(ball.getLeft(),Crack.LEFT);
             }
@@ -444,10 +434,6 @@ public class Wall {
                 throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
         }
         return  out;
-    }
-
-    public void setBricks(BrickControl[] bricks) {
-        this.bricks = bricks;
     }
 
     public BrickControl[] getBricks() {return bricks;}

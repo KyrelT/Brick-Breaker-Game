@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 
 abstract public class BrickControl {
-    public static final int MIN_CRACK = 1;
     public static final int DEF_CRACK_DEPTH = 1;
     public static final int DEF_STEPS = 35;
 
@@ -94,16 +93,12 @@ abstract public class BrickControl {
             return 0;
         int out  = 0;
         if(brickFace.contains(b.getRight())){
-            System.out.println("findimpact");
             out = BrickModel.LEFT_IMPACT;}
         else if(brickFace.contains(b.getLeft())){
-            System.out.println("findimpact");
             out = BrickModel.RIGHT_IMPACT;}
         else if(brickFace.contains(b.getUp())){
-            System.out.println("findimpact");
             out = BrickModel.DOWN_IMPACT;}
         else if(brickFace.contains(b.getDown())){
-            System.out.println("findimpact");
             out = BrickModel.UP_IMPACT ;}
         return out;
 
@@ -146,12 +141,9 @@ abstract public class BrickControl {
      * @return a boolean value if there is any impact
      */
     public  boolean setImpact(Point2D point , int dir){
-        System.out.println("setImpact");
         if(isBroken()){
-            System.out.println("setImpact");
             return false;}
         impact();
-        System.out.println("setImpact");
         return isBroken();
     }
 

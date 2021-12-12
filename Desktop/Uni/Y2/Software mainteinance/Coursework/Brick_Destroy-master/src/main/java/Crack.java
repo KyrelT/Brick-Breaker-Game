@@ -6,8 +6,6 @@ import java.awt.geom.Point2D;
 
 import static main.Model.Brick.BrickModel.getRnd;
 
-//import static main.java.Brick.getRnd;
-
 public class Crack {
 
         private static final int CRACK_SECTIONS = 3;

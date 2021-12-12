@@ -25,9 +25,7 @@ public class PlayerControl {
     {
         playerView = new PlayerView();
         playerModel = new PlayerModel(ballPoint, width, height, container);
-        ballPoint = playerModel.getBallPoint();
         playerFace = playerModel.getPlayerFace();
-        //ballControl = new RubberBall(ballPoint);
     }
 
     public static PlayerControl getInstance() {
