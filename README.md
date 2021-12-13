@@ -40,7 +40,7 @@ OWA: hcykt2
   . WallTest
  
 --------Additions
-. Added new level and one new bricks (  )
+. Added new level and two new bricks which is BombBrick and DiamondBrick, BombBrick will end the game immediately once it has impact with the ball and DiamondBrick has the strongest strength among all of the bricks
 . Added Instruction screen where it can be access through the Home Menu and the Pause Menu
 . Added Leaderboard screen which stores high scores and users are able to view it after the game
 . Added Pop-up dialog which will appear after losing or winning the game to take name input to store in the Leaderboard
