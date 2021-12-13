@@ -12,11 +12,8 @@ public class BallModel {
     Point2D left;
     Point2D right;
 
-
-
     private int speedX;
     private int speedY;
-
 
     /**
      * @param center center position for the ball

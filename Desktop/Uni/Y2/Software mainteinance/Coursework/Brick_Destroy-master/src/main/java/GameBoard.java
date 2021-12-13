@@ -35,7 +35,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private static final Color BG_COLOR = Color.WHITE;
     private static String name;
-//    public Point2D down;
 
     public Timer gameTimer;
 
@@ -49,6 +48,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private boolean showPauseMenu;
     private boolean showInstructions;
     private boolean showleaderboard;
+    private boolean showEnd;
 
     public boolean collected;
     public boolean ispowerSpawn;
@@ -59,6 +59,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private Font DFont;
     private Font SpaceFont;
     private Font BackFont;
+    private Font EndFont;
 
     private Rectangle continueButtonRect;
     private Rectangle exitButtonRect;
@@ -122,6 +123,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 }
                 else{
                     message = "ALL WALLS DESTROYED";
+                    showEnd = true;
+                    repaint();
                     gameTimer.stop();
                 }
             }
@@ -129,7 +132,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     wall.p.drop();
                     this.p = wall.p;
                     if (PlayerControl.getInstance().getPlayerFace().contains(p.getPowerup().getLocation())) {
-                        System.out.print("add bonus score\n");
                         wall.setCollected(true);
                     }
                 }
@@ -140,6 +142,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         DFont = new Font("Noto Mono",Font.BOLD,25);
         SpaceFont = new Font("Noto Mono",Font.BOLD,25);
         BackFont = new Font("Noto Mono",Font.BOLD,25);
+        EndFont = new Font("Noto Mono",Font.ITALIC,50);
 
     }
 
@@ -199,6 +202,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             }
         }
 
+        if(showEnd){
+            drawEnd(g2d);
+        }
+
         Toolkit.getDefaultToolkit().sync();
     }
 
@@ -226,6 +233,27 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private void drawMenu(Graphics2D g2d){
         obscureGameBoard(g2d);
         drawPauseMenu(g2d);
+    }
+
+    private void drawEnd(Graphics2D g2d){
+        obscureGameBoard(g2d);
+        g2d.setColor(new Color(130,250,130));
+        Rectangle EndFace = new Rectangle(new Point(0,0),new Dimension(600,450));
+        g2d.fill(EndFace);
+
+        g2d.setColor(new Color(140,100,200));
+
+        int sX = 160;
+        int sY = 225;
+
+        g2d.setFont(EndFont);
+        g2d.drawString("GAME",sX,sY);
+
+        sX = 320;
+        sY = 225;
+
+        g2d.setFont(EndFont);
+        g2d.drawString("OVER",sX,sY);
     }
 
     /**
@@ -390,8 +418,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(new Color(180,240,180)); // background color
         Rectangle InstructionFace = new Rectangle(new Point(0, 0), new Dimension(600,450));
         g2d.fill(InstructionFace);
-
-
 
         String row = " ";
         String name = " ";
@@ -579,7 +605,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     public void onLostFocus(){
         gameTimer.stop();
-        message = "Focus Lost";
+        message = "Errr Hello are you still playing ?";
         repaint();
     }
 

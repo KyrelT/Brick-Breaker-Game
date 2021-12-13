@@ -12,20 +12,21 @@ import java.util.Random;
 
 public class Wall {
 
-    private static final int LEVELS_COUNT = 7;
+    private static final int LEVELS_COUNT = 8;
 
     private static final int CLAY = 1;
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
     private static final int DIAMOND = 4;
+    private static final int BOMB = 5;
 
-    private final Random rnd;
     private final Rectangle area;
 
     BrickControl[] bricks;
     BallControl ball;
     BrickFactory brickfactory;
     BallFactory ballfactory;
+    BombBrick bb;
 
     private final BrickControl[][] levels;
     private int level;
@@ -36,6 +37,8 @@ public class Wall {
     private int ballCount;
     private int FinalHighScore;
     private boolean collected;
+    private boolean isBomb;
+    public boolean showEndscreen;
 
     PlayerControl player;
 
@@ -66,8 +69,6 @@ public class Wall {
         ballLost = false;
 
 
-        rnd = new Random();
-
         int speedX,speedY;
             speedX = 8; // changing speed of the ball , when speed = 0, speedX keeps random-ing number , <=0 then left
             speedY = -3;// negative = upwards
@@ -80,7 +81,15 @@ public class Wall {
 
     }
 
-/**
+    public boolean isBomb() {
+        return isBomb;
+    }
+
+    public void setBomb(boolean bomb) {
+        isBomb = bomb;
+    }
+
+    /**
      * @param drawArea the area of the wall
      * @param brickCnt the amount of bricks
      * @param lineCnt the amount of lines
@@ -125,9 +134,52 @@ public class Wall {
         }
         return tmp;
 
+
+
     }
 
-/**
+    private BrickControl[] makeFunLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
+
+
+        brickCnt -= brickCnt % lineCnt;
+
+        int brickOnLine = brickCnt / lineCnt;
+
+        double brickLen = drawArea.getWidth() / brickOnLine;
+        double brickHgt = brickLen / brickSizeRatio;
+
+        brickCnt += lineCnt / 2;
+
+        BrickControl[] tmp  = new BrickControl[brickCnt];
+
+        setBomb(true);
+
+        Dimension brickSize = new Dimension((int) brickLen,(int) brickHgt);
+        Point p = new Point();
+
+        int i;
+        for(i = 0; i < tmp.length; i++){
+            int line = i / brickOnLine;
+            if(line == lineCnt)
+                break;
+            double x = (i % brickOnLine) * brickLen;
+            x =(line % 2 == 0) ? x : (x - (brickLen / 2));
+            double y = (line) * brickHgt;
+            p.setLocation(x,y);
+            tmp[i] = makeBrick(p,brickSize,type);
+        }
+
+        for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
+            double x = (brickOnLine * brickLen) - (brickLen / 0.5);
+            p.setLocation(x,y);
+            tmp[i] = new BombBrick(p,brickSize);
+        }
+        return tmp;
+
+    }
+
+
+    /**
      * method to create an array of a two type of bricks in a chessboard pattern
      * @param drawArea the area of the wall
      * @param brickCnt the amount of brick
@@ -207,6 +259,7 @@ public class Wall {
         tmp[4] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,DIAMOND);
         tmp[5] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,DIAMOND,CEMENT);
         tmp[6] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,DIAMOND,STEEL);
+        tmp[7] = makeFunLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CEMENT);
         return tmp;
     }
 
@@ -429,6 +482,9 @@ public class Wall {
                 break;
             case DIAMOND:
                 out = brickfactory.getBrickType("DIAMOND",point,size);
+                break;
+            case BOMB:
+                out = brickfactory.getBrickType("BOMB",point,size);
                 break;
             default:
                 throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));

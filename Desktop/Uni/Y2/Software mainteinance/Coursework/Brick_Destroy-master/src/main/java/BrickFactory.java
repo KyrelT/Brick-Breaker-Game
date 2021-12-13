@@ -23,6 +23,8 @@ public class BrickFactory {
             return new SteelBrick(point,size);
         else if(name.equalsIgnoreCase("DIAMOND"))
             return new DiamondBrick(point,size);
+        else if(name.equalsIgnoreCase("BOMB"))
+            return new BombBrick(point,size);
 
         return null;
     }
