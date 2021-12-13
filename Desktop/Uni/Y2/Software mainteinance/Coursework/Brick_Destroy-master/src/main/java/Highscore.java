@@ -36,9 +36,9 @@ public class Highscore {
     /**
      * @throws IOException
      */
-    public static void write() throws IOException{
+    public Highscore() throws IOException{
 
-            showhighscore = wall.getFinalHighScore();
+            showhighscore = Wall.getFinalHighScore();
 
             File writer = new File("src/main/resources/Highscore.txt");
 
@@ -47,7 +47,7 @@ public class Highscore {
             BufferedWriter buff = new BufferedWriter(append);
 
             for (int i =0;i <10;i++){
-                if(append!=null){
+                if(writer!=null){
                     append.append(GameBoard.getname());
                     append.append(',');
                     append.append(String.valueOf(showhighscore));

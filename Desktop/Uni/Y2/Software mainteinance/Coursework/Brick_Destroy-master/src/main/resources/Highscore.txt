@@ -1,3 +1,8 @@
-noob,20,1
-rachel,1,2
-zh,0,3
+DIckson,9,1
+Ali,8,2
+John,6,3
+Connor,5,4
+Kyrel,5,5
+Jackson,4,6
+Lizzy,1,7
+William,0,8

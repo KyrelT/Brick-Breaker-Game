@@ -26,7 +26,6 @@ public class Wall {
     BallControl ball;
     BrickFactory brickfactory;
     BallFactory ballfactory;
-    BombBrick bb;
 
     private final BrickControl[][] levels;
     private int level;
@@ -35,9 +34,9 @@ public class Wall {
     private int brickCount;
     private int CurrentHighScore;
     private int ballCount;
-    private int FinalHighScore;
+    public static int FinalHighScore;
     private boolean collected;
-    private boolean isBomb;
+    private boolean isBomb = false;
     public boolean showEndscreen;
 
     PlayerControl player;
@@ -98,7 +97,7 @@ public class Wall {
      * @return an array of brick objects*/
 
 
-    private BrickControl[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
+    public BrickControl[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
 
 
         brickCnt -= brickCnt % lineCnt;
@@ -135,46 +134,6 @@ public class Wall {
         return tmp;
 
 
-
-    }
-
-    private BrickControl[] makeFunLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
-
-
-        brickCnt -= brickCnt % lineCnt;
-
-        int brickOnLine = brickCnt / lineCnt;
-
-        double brickLen = drawArea.getWidth() / brickOnLine;
-        double brickHgt = brickLen / brickSizeRatio;
-
-        brickCnt += lineCnt / 2;
-
-        BrickControl[] tmp  = new BrickControl[brickCnt];
-
-        setBomb(true);
-
-        Dimension brickSize = new Dimension((int) brickLen,(int) brickHgt);
-        Point p = new Point();
-
-        int i;
-        for(i = 0; i < tmp.length; i++){
-            int line = i / brickOnLine;
-            if(line == lineCnt)
-                break;
-            double x = (i % brickOnLine) * brickLen;
-            x =(line % 2 == 0) ? x : (x - (brickLen / 2));
-            double y = (line) * brickHgt;
-            p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,type);
-        }
-
-        for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
-            double x = (brickOnLine * brickLen) - (brickLen / 0.5);
-            p.setLocation(x,y);
-            tmp[i] = new BombBrick(p,brickSize);
-        }
-        return tmp;
 
     }
 
@@ -259,7 +218,6 @@ public class Wall {
         tmp[4] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,DIAMOND);
         tmp[5] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,DIAMOND,CEMENT);
         tmp[6] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,DIAMOND,STEEL);
-        tmp[7] = makeFunLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CEMENT);
         return tmp;
     }
 
@@ -393,7 +351,7 @@ public class Wall {
     /**
      * @return get the level's final highscore
      */
-    public int getFinalHighScore() {
+    public static int getFinalHighScore() {
         return FinalHighScore;
     }
 
@@ -483,13 +441,14 @@ public class Wall {
             case DIAMOND:
                 out = brickfactory.getBrickType("DIAMOND",point,size);
                 break;
-            case BOMB:
-                out = brickfactory.getBrickType("BOMB",point,size);
-                break;
             default:
                 throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
         }
         return  out;
+    }
+
+    public void setBricks(BrickControl[] bricks) {
+        this.bricks = bricks;
     }
 
     public BrickControl[] getBricks() {return bricks;}
