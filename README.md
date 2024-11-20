@@ -1,8 +1,6 @@
-# COMP2042_CW_hcykt2
-Java Coursework
+# Brick Buster Game
+Java Programmed
 Name : Kyrel Tan Yan Hee
-Course : Computer Science with Artificial Intelligence 
-OWA: hcykt2
 
 ---------How To Run
 . Open up the project on IntelliJ IDEA after extracting the zip file
